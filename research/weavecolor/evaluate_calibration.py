@@ -80,14 +80,16 @@ def main():
                     if n == 0 or n > 5:
                         continue
                     # fabrics of one warp yarn, evaluated on the loom's other warp yarns
-                    errs = []
+                    errs, base = [], []
                     for wy in np.unique(warp):
                         same = np.flatnonzero(warp == wy)
                         other = np.flatnonzero(warp != wy)
                         for _ in range(DRAWS // 5):
                             cal = rng.choice(same, n, replace=False)
                             errs.append(calibrated_error(p, y, cal, other))
+                            base.append(calibrated_error(p, y, np.array([], int), other))
                     w.writerow([name, "cross-warp", n, k, f"{np.mean(errs):.4f}"])
+                    w.writerow([name, "cross-warp-baseline", n, k, f"{np.mean(base):.4f}"])
                     # placebo: offset from n fabrics of another loom
                     errs = []
                     for j in rows:
@@ -99,13 +101,16 @@ def main():
                                                          cal_pred=preds[j][cal], cal_y=ds.lab[rows[j]][cal]))
                     w.writerow([name, "placebo", n, k, f"{np.mean(errs):.4f}"])
                     # fabrics of one warp yarn, evaluated on that warp yarn's other fabrics
-                    errs = []
+                    errs, base = [], []
                     for wy in np.unique(warp):
                         same = np.flatnonzero(warp == wy)
                         for _ in range(DRAWS // 5):
                             cal = rng.choice(same, n, replace=False)
-                            errs.append(calibrated_error(p, y, cal, np.setdiff1d(same, cal)))
+                            rest = np.setdiff1d(same, cal)
+                            errs.append(calibrated_error(p, y, cal, rest))
+                            base.append(calibrated_error(p, y, np.array([], int), rest))
                     w.writerow([name, "within-warp", n, k, f"{np.mean(errs):.4f}"])
+                    w.writerow([name, "within-warp-baseline", n, k, f"{np.mean(base):.4f}"])
                     if n == 1:
                         # the warp yarn's same-colour fabric, a swatch a weaver can weave first
                         weft = ds.weft[te]

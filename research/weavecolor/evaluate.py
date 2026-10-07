@@ -106,15 +106,21 @@ def model_factories():
 
 
 # ---------------------------------------------------------------- run
-def out_of_fold(ds, make, splitter, idx, scheme):
-    """Out-of-fold CIEDE2000 per fabric; a fabric held out in several folds gets the mean error."""
+def out_of_fold(ds, make, splitter, idx, scheme, per_fold=None, shuffled_inner=False):
+    """Out-of-fold CIEDE2000 per fabric; a fabric held out in several folds gets the mean error.
+
+    per_fold: optional list that receives (fold number, row, error) for every single prediction.
+    shuffled_inner: use the default shuffled inner CV instead of splits that mirror the scheme."""
     total = np.zeros(len(ds.lab))
     count = np.zeros(len(ds.lab))
-    for tr, te in splitter(ds, idx):
+    for k, (tr, te) in enumerate(splitter(ds, idx)):
         if len(te):
-            model = make().fit(ds, tr, cv=inner_cv(ds, tr, scheme))
-            total[te] += delta_e_2000(model.predict(ds, te), ds.lab[te])
+            model = make().fit(ds, tr, cv=None if shuffled_inner else inner_cv(ds, tr, scheme))
+            e = delta_e_2000(model.predict(ds, te), ds.lab[te])
+            total[te] += e
             count[te] += 1
+            if per_fold is not None:
+                per_fold.extend(zip([k] * len(te), te, e))
     err = np.full(len(ds.lab), np.nan)
     err[count > 0] = total[count > 0] / count[count > 0]
     return err

@@ -60,6 +60,9 @@ def uncertainty():
         "S-N + GP": lambda: HybridModel(StearnsNoechel, "GP"),
     }
     out = RESULTS / "uncertainty_oof.csv"
+    single = open(RESULTS / "uncertainty_folds.csv", "w", newline="", encoding="utf-8")
+    ws = csv.writer(single)     # every single prediction (leave-one-yarn-out predicts most fabrics twice)
+    ws.writerow(["model", "scheme", "fold", "row", "de00", "unc"])
     with open(out, "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
         w.writerow(["model", "scheme", "row", "de00", "unc"])
@@ -67,17 +70,22 @@ def uncertainty():
             for name, make in models.items():
                 # a fabric held out in two leave-one-yarn-out folds gets the mean of both
                 s_err, s_unc, n = np.zeros(len(ds.lab)), np.zeros(len(ds.lab)), np.zeros(len(ds.lab))
-                for tr, te in splitter(ds, idx):
+                for k, (tr, te) in enumerate(splitter(ds, idx)):
                     pred, std = make().fit(ds, tr, cv=inner_cv(ds, tr, scheme)).predict(ds, te, return_std=True)
-                    s_err[te] += delta_e_2000(pred, ds.lab[te])
-                    s_unc[te] += np.sqrt((np.asarray(std) ** 2).sum(-1))
+                    e, u = delta_e_2000(pred, ds.lab[te]), np.sqrt((np.asarray(std) ** 2).sum(-1))
+                    s_err[te] += e
+                    s_unc[te] += u
                     n[te] += 1
+                    for i, ei, ui in zip(te, e, u):
+                        ws.writerow([name, scheme, k, i, f"{ei:.4f}", f"{ui:.5f}"])
                 err = np.where(n > 0, s_err / np.maximum(n, 1), np.nan)
                 unc = np.where(n > 0, s_unc / np.maximum(n, 1), np.nan)
                 for i in idx:
                     w.writerow([name, scheme, i, f"{err[i]:.4f}", f"{unc[i]:.5f}"])
                 f.flush()
+                single.flush()
                 print(scheme, name, f"{np.nanmean(err[idx]):.2f}", flush=True)
+    single.close()
     print("wrote", out)
 
 

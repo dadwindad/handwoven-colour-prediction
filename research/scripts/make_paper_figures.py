@@ -103,6 +103,29 @@ def load_errors():
     return errs, family, order
 
 
+def load_single(subset, shuffled=False):
+    """Leave-one-yarn-out single predictions: model -> (fold yarn codes, rows, errors). A fabric of two
+    different yarns is predicted twice; distribution summaries (quantiles, coverage, shares within a
+    threshold) use these single predictions, whereas means and paired tests use the per-fabric mean."""
+    path = RES / f"loyo_folds_{subset}{'_shuffled' if shuffled else ''}.csv"
+    if not path.exists():
+        return {}
+    out = defaultdict(lambda: ([], [], []))
+    for r in csv.DictReader(open(path, newline="", encoding="utf-8")):
+        f, i, e = out[r["model"]]
+        f.append(r["fold"]); i.append(int(r["row"])); e.append(float(r["de00"]))
+    return {m: tuple(map(np.array, v)) for m, v in out.items()}
+
+
+def dist_errors(errs, single, m, scheme, idx):
+    """Errors whose distribution is summarised: single predictions for leave-one-yarn-out (if
+    available), otherwise the per-fabric out-of-fold errors."""
+    if scheme == "leave-one-yarn-out" and m in single:
+        f, i, e = single[m]
+        return e[np.isin(i, idx)]
+    return errs[(m, scheme)][idx]
+
+
 def folds(idx):
     """For every scheme: a fold label per fabric (meaningful for random 5-fold and leave-one-loom-out,
     where each fabric is held out once) and the list of (train, test) splits. Under
@@ -299,7 +322,7 @@ def fig_distance(errs, dist, idx):
 
 
 # ---------------------------------------------------------------- tables
-def table_all(errs, family, order, idx, subset):
+def table_all(errs, family, order, idx, subset, single=None):
     """LaTeX rows: mean (share <= 3); markers vs the S-N + XGBoost hybrid by the yarn-cluster
     bootstrap test, Holm-corrected within each scheme."""
     W = yarn_weights(idx)
@@ -316,8 +339,8 @@ def table_all(errs, family, order, idx, subset):
         cells = []
         for scheme in SCHEMES:
             e = errs[(m, scheme)][idx]
-            cell = f"{e.mean():.2f} ({np.mean(e <= 3) * 100:.0f})" + marks[(m, scheme)] if m != REF else \
-                f"{e.mean():.2f} ({np.mean(e <= 3) * 100:.0f})"
+            d = dist_errors(errs, single or {}, m, scheme, idx)
+            cell = f"{e.mean():.2f} ({np.mean(d <= 3) * 100:.0f})" + (marks[(m, scheme)] if m != REF else "")
             cells.append(f"\\textbf{{{cell}}}" if m == REF else cell)
         lines.append(f"{FAMILY_EN[family[m]]} & {name_en(m)} & " + " & ".join(cells) + r" \\")
     (OUT / f"table_all_{subset}.tex").write_text("\n".join(lines) + "\n", encoding="utf-8")
@@ -331,13 +354,13 @@ def held_out_groups(scheme, idx, fl):
     return [lab == g for g in np.unique(lab)]
 
 
-def table_shares(errs, idx):
-    """Share of fabrics within 1, 2 and 3 CIEDE2000 units, key models, every scheme."""
+def table_shares(errs, idx, single):
+    """Share of predictions within 1, 2 and 3 CIEDE2000 units, key models, every scheme."""
     lines = []
     for m, label in MODELS.items():
         cells = []
         for scheme in SCHEMES:
-            e = errs[(m, scheme)][idx]
+            e = dist_errors(errs, single, m, scheme, idx)
             cells += [f"{np.mean(e <= t) * 100:.0f}" for t in (1, 2, 3)]
         lines.append(f"{label} & " + " & ".join(cells) + r" \\")
     (OUT / "table_shares.tex").write_text("\n".join(lines) + "\n", encoding="utf-8")
@@ -382,13 +405,21 @@ def table_gain(tests):
     (OUT / "table_gain.tex").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
-def bounds_and_coverage(errs, idx, fl):
+def bounds_and_coverage(errs, idx, fl, single):
     """Empirical error quantiles per scenario, and their coverage on held-out groups: for each fold
-    (loom, yarn fold or random fold) the quantile is computed from the other folds' errors only."""
+    (random fold, held-out yarn or loom) the quantile is computed from the other folds' errors only.
+    Under leave-one-yarn-out the single predictions are used: the group of yarn c is the 49
+    predictions made with c unseen."""
     rows = []
     for scheme in SCHEMES:
-        e = errs[(REF, scheme)][idx]
-        groups = held_out_groups(scheme, idx, fl)
+        if scheme == "leave-one-yarn-out" and REF in single:
+            f, i, e = single[REF]
+            keep = np.isin(i, idx)
+            f, e = f[keep], e[keep]
+            groups = [f == c for c in np.unique(f)]
+        else:
+            e = errs[(REF, scheme)][idx]
+            groups = held_out_groups(scheme, idx, fl)
         qs = np.percentile(e, [50, 80, 90])
         cov = {}
         for level in (80, 90):
@@ -428,9 +459,10 @@ def residual_analysis(idx, fl):
 
 
 def uncertainty_tables():
-    path = RES / "uncertainty_oof.csv"
+    """Spearman and AUROC from single predictions (leave-one-yarn-out predicts most fabrics twice)."""
+    path = RES / "uncertainty_folds.csv"
     if not path.exists():
-        return ["(uncertainty_oof.csv missing: run weavecolor.evaluate_revision uncertainty)"]
+        return ["(uncertainty_folds.csv missing: run weavecolor.evaluate_revision uncertainty)"]
     rows = defaultdict(lambda: ([], []))
     for r in csv.DictReader(open(path, newline="", encoding="utf-8")):
         e, u = rows[(r["model"], r["scheme"])]
@@ -438,7 +470,7 @@ def uncertainty_tables():
         u.append(float(r["unc"]))
     lines, tex = [], []
     if not all((m, s) in rows for m in ("S-N + XGBoost, bagged", "S-N + GP") for s in SCHEMES):
-        return [f"(uncertainty_oof.csv incomplete: {len(rows)}/6 model-scheme pairs)"]
+        return [f"(uncertainty_folds.csv incomplete: {len(rows)}/6 model-scheme pairs)"]
     for model in ("S-N + XGBoost, bagged", "S-N + GP"):
         cells = []
         for scheme in SCHEMES:
@@ -468,7 +500,7 @@ def calibration():
     v = defaultdict(list)
     for r in csv.DictReader(open(path, newline="", encoding="utf-8")):
         v[(r["model"], r["strategy"], int(r["n"]))].append(float(r["mean_de00"]))
-    if not all((m, "swatch", 1) in v for m in CAL_MODELS):
+    if not all((m, "within-warp-baseline", 3) in v for m in CAL_MODELS):
         return ["(calibration.csv incomplete)"]
     mean = {k: np.mean(x) for k, x in v.items()}            # mean over the five held-out looms
     lines = ["mean over the five held-out looms of the mean CIEDE2000 of the evaluated fabrics",
@@ -480,9 +512,11 @@ def calibration():
         rnd, ww, cw, pl = (row("random", (0, 1, 2, 3, 5, 10)), row("within-warp", (1, 2, 3, 5)),
                            row("cross-warp", (1, 2, 3, 5)), row("placebo", (1, 2, 3, 5)))
         sw0, sw1 = mean[(m, "swatch-baseline", 0)], mean[(m, "swatch", 1)]
+        ww0, cw0 = mean[(m, "within-warp-baseline", 3)], mean[(m, "cross-warp-baseline", 3)]
         f = lambda xs: " ".join(f"{x:.2f}" for x in xs)
-        lines.append(f"{MODELS[m]} | {f(rnd)} | {f(ww)} | {f(cw)} | {f(pl)} | {sw0:.2f} -> {sw1:.2f}")
-        tex.append(f"{MODELS[m]} & " + " & ".join(f"{x:.2f}" for x in (rnd[0], rnd[3], rnd[5], ww[2], cw[2], pl[2], sw0, sw1))
+        lines.append(f"{MODELS[m]} | {f(rnd)} | {f(ww)} (none {ww0:.2f}) | {f(cw)} (none {cw0:.2f}) | {f(pl)} | "
+                     f"{sw0:.2f} -> {sw1:.2f}")
+        tex.append(f"{MODELS[m]} & " + " & ".join(f"{x:.2f}" for x in (rnd[0], rnd[3], rnd[5], ww0, ww[2], cw0, cw[2], pl[2], sw0, sw1))
                    + r" \\")
     (OUT / "table_calibration.tex").write_text("\n".join(tex) + "\n", encoding="utf-8")
     for m in ("Hybrid: S-N + XGBoost", "S-N (Stearns-Noechel)"):
@@ -515,6 +549,8 @@ INNER_KEY = ["เฉลี่ย L*a*b*", "S-N (Stearns-Noechel)", "ML ล้ว
 
 
 def inner_cv_sensitivity(errs, idx):
+    """Previous protocol versus current, with the leave-one-yarn-out change split in two: shuffled
+    inner folds with both folds averaged isolates the effect of averaging the two folds."""
     path = RES / "archive" / "oof_errors_shuffled_inner_cv.csv"
     if not path.exists():
         return ["(archive missing)"]
@@ -522,12 +558,20 @@ def inner_cv_sensitivity(errs, idx):
     for r in csv.DictReader(open(path, newline="", encoding="utf-8")):
         if r["subset"] == "all":
             old[(r["model"], r["scheme"])][int(r["row"])] = float(r["de00"])
-    lines, tex = ["model | unseen yarn previous -> current | unseen loom previous -> current"], []
+    shuf = load_single("all", shuffled=True)
+    lines = ["model | unseen yarn: previous / shuffled inner + both folds / current | "
+             "unseen loom: previous / current"]
+    tex = []
     for m in INNER_KEY:
-        cells = []
-        for s in ("leave-one-yarn-out", "leave-one-loom-out"):
-            cells += [np.nanmean(old[(m, s)][idx]), errs[(m, s)][idx].mean()]
-        lines.append(f"{name_en(m)} | {cells[0]:.2f} -> {cells[1]:.2f} | {cells[2]:.2f} -> {cells[3]:.2f}")
+        if m in shuf:
+            f, i, e = shuf[m]
+            mid = np.mean(np.bincount(i, e, N)[idx] / np.bincount(i, None, N)[idx])
+        else:
+            mid = np.nan
+        cells = [np.nanmean(old[(m, "leave-one-yarn-out")][idx]), mid, errs[(m, "leave-one-yarn-out")][idx].mean(),
+                 np.nanmean(old[(m, "leave-one-loom-out")][idx]), errs[(m, "leave-one-loom-out")][idx].mean()]
+        lines.append(f"{name_en(m)} | " + " / ".join(f"{x:.2f}" for x in cells[:3]) + " | "
+                     + " / ".join(f"{x:.2f}" for x in cells[3:]))
         tex.append(f"{name_en(m)} & " + " & ".join(f"{x:.2f}" for x in cells) + r" \\")
     (OUT / "table_innercv.tex").write_text("\n".join(tex) + "\n", encoding="utf-8")
     return lines
@@ -592,28 +636,39 @@ def main():
     fig_looms(errs)
     dist = input_distance(idx, fl)
     edges, dist_rows = fig_distance(errs, dist, idx)
+    singles = {sub: load_single(sub) for sub in ("all", "clean")}
+    single = singles[PRIMARY]
     for subset in ("all", "clean"):
-        table_all(allerrs[subset], family, order, subsets(DS)[subset], subset)
-    table_shares(errs, idx)
+        table_all(allerrs[subset], family, order, subsets(DS)[subset], subset, singles[subset])
+    table_shares(errs, idx, single)
     tests = gain_tests(errs, idx, fl)
     table_gain(tests)
-    bounds = bounds_and_coverage(errs, idx, fl)
+    bounds = bounds_and_coverage(errs, idx, fl, single)
     res_lines, outside, _ = residual_analysis(idx, fl)
 
     L = [f"PRIMARY ANALYSIS: {PRIMARY} ({len(idx)} fabrics). CI: yarn-cluster (pigeonhole) bootstrap, "
          f"{B} resamples; fabric bootstrap CI shown for comparison",
          "model | scheme | mean [yarn-cluster 95% CI] | [fabric 95% CI] | share<=1 | share<=2 | share<=3 | "
-         "median | P80 | P90"]
+         "median | P80 | P90  (shares and quantiles: single predictions under leave-one-yarn-out)"]
     rng = np.random.default_rng(0)
     for m, label in MODELS.items():
         for scheme in SCHEMES:
             e = errs[(m, scheme)][idx]
             lo, hi = boot_ci(W, e)
             fb = rng.choice(e, (2000, len(e))).mean(1)
+            d = dist_errors(errs, single, m, scheme, idx)
             L.append(f"{label} | {scheme} | {e.mean():.2f} [{lo:.2f}, {hi:.2f}] | "
                      f"[{np.percentile(fb, 2.5):.2f}, {np.percentile(fb, 97.5):.2f}] | "
-                     f"{np.mean(e <= 1):.0%} | {np.mean(e <= 2):.0%} | {np.mean(e <= 3):.0%} | {np.median(e):.2f} | "
-                     f"{np.percentile(e, 80):.2f} | {np.percentile(e, 90):.2f}")
+                     f"{np.mean(d <= 1):.0%} | {np.mean(d <= 2):.0%} | {np.mean(d <= 3):.0%} | {np.median(d):.2f} | "
+                     f"{np.percentile(d, 80):.2f} | {np.percentile(d, 90):.2f}")
+    # the per-fabric means of the single predictions must reproduce the main out-of-fold errors
+    worst = 0.0
+    for sub in ("all", "clean"):
+        for m, (f, i, e) in singles[sub].items():
+            avg = np.bincount(i, e, N)[np.unique(i)] / np.bincount(i, None, N)[np.unique(i)]
+            worst = max(worst, np.max(np.abs(avg - allerrs[sub][(m, "leave-one-yarn-out")][np.unique(i)])))
+    L.append(f"consistency: single-prediction means vs stored leave-one-yarn-out errors, max |diff| = {worst:.4f} "
+             f"({sum(len(v) for v in singles.values())} models checked)")
     L += ["", "pure learners worse than mean CIELAB (yarn-cluster bootstrap, Holm over the pure learners)"]
     pure = [m for m in order if family[m] == "ml"]
     for scheme in SCHEMES:

@@ -6,9 +6,9 @@ This repository contains the data set, analysis code and results for the paper
 > *Shift-aware evaluation and physics-guided residual learning for colour prediction of handwoven fabrics.*
 > Manuscript submitted to Expert Systems with Applications.
 
-**Version 1.1.0.** Archived on Zenodo: [doi:10.5281/zenodo.23205538](https://doi.org/10.5281/zenodo.23205538)
-(concept DOI, all versions). Version 1.1.0 changes the evaluation protocol (see *Changes in 1.1.0*
-below) and adds the few-shot loom-calibration experiment; versions 1.0.x contain the earlier protocol.
+**Version 1.1.1.** Archived on Zenodo: [doi:10.5281/zenodo.23205538](https://doi.org/10.5281/zenodo.23205538)
+(concept DOI, all versions). Version 1.1.x changes the evaluation protocol (see *Changes* below) and adds the few-shot
+loom-calibration experiment; versions 1.0.x contain the earlier protocol.
 
 It also contains a small offline web app (and a macOS wrapper) that lets weavers look up the
 woven colour of any pair of yarns.
@@ -65,6 +65,9 @@ a sensitivity analysis, because the flags were derived from the measured fabric 
 | `repeated_cv.csv` | random 5-fold CV repeated with seeds 0–9 |
 | `selected_params.csv` | hyper-parameters chosen by the inner CV in every outer fold, and fitted mixing-law parameters |
 | `calibration.csv` | few-shot calibration of a new loom: mean error after an offset from n calibration fabrics, per model, strategy and held-out loom |
+| `loyo_folds_all.csv`, `loyo_folds_clean.csv` | leave-one-yarn-out single predictions (a fabric of two yarns is predicted twice); used for quantiles, coverage and shares within a threshold |
+| `loyo_folds_all_shuffled.csv` | the same with the earlier shuffled inner CV (key models), separating the two protocol changes |
+| `uncertainty_folds.csv` | error and uncertainty of every single prediction |
 | `observer_check.csv` | key physics and hybrid models with the 2° instead of the 10° observer |
 | `archive/` | results of the earlier protocol (versions 1.0.x), kept for the comparison in the paper's appendix |
 
@@ -103,6 +106,13 @@ Inner (tuning) cross-validation mirrors the outer scheme: shuffled 3-fold for ra
 groups of held-out yarns for leave-one-yarn-out, and leave-one-training-loom-out for
 leave-one-loom-out (`weavecolor.evaluate.inner_cv`). Under leave-one-yarn-out a fabric of two
 different yarns is held out in two folds and its error is the mean of both.
+
+### Changes in 1.1.1
+
+- Leave-one-yarn-out single predictions are stored (`weavecolor/evaluate_perfold.py`); quantiles,
+  coverage, shares within a threshold and uncertainty rankings use them instead of the per-fabric
+  mean of two predictions. Means and paired tests are unchanged.
+- The few-shot calibration also records the uncalibrated error of the same evaluated fabrics.
 
 ### Changes in 1.1.0
 

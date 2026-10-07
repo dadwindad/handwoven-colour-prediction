@@ -3,8 +3,8 @@
     .venv/bin/python scripts/progress.py            # print once
     .venv/bin/python scripts/progress.py --watch    # refresh every 15 s (Ctrl+C to stop)
 
-Reads results/run_all.log (weavecolor.evaluate) and results/run_cnn_b.log
-(weavecolor.evaluate_cnn_b). Time remaining is estimated from how long similar
+Reads results/run_all.log (weavecolor.evaluate), results/run_cnn_b.log
+(weavecolor.evaluate_cnn_b) and results/run_perfold_*.log (weavecolor.evaluate_perfold). Time remaining is estimated from how long similar
 finished steps took, so it gets better as the run goes on.
 """
 import argparse
@@ -111,11 +111,57 @@ def cnn_b_run():
                     f"  เหลือประมาณ: {fmt_time(remaining)}  (~{per_fold:.0f} วิ/รอบ)"]
 
 
+PERFOLD = re.compile(r"^(?P<model>.+?)\s+mean\s+[\d.]+\s+\((?P<n>\d+) predictions,\s*(?P<secs>\d+)s\)")
+
+
+def perfold_runs():
+    """weavecolor.evaluate_perfold: leave-one-yarn-out with every single prediction kept."""
+    logs = sorted(RESULTS.glob("run_perfold_*.log"))
+    if not logs:
+        return []
+    from weavecolor.evaluate import model_factories
+    from weavecolor.evaluate_perfold import KEY
+    names = [make().name for make in model_factories()]
+    lines = ["Leave-one-yarn-out ราย prediction (weavecolor.evaluate_perfold)"]
+    is_running = running("weavecolor.evaluate_perfold")
+    for log in logs:
+        text = log.read_text(encoding="utf-8")
+        todo_names = [n for n in names if n in KEY] if "keyonly" in log.name else names
+        done = {}
+        for line in text.splitlines():
+            m = PERFOLD.match(line)
+            if m:
+                done[m["model"].strip()] = int(m["secs"])
+        label = log.stem.replace("run_perfold_", "")
+        lines.append(f"  {label}")
+        lines.append("    " + bar(len(done), len(todo_names)))
+        todo = [n for n in todo_names if n not in done]
+        if "wrote" in text:
+            lines.append("    ✅ เสร็จแล้ว")
+        elif "Traceback" in text:
+            lines.append(f"    ⚠️ มี error ดู {log.relative_to(ROOT)}")
+        elif todo and is_running:
+            def est(n):
+                same = [t for d, t in done.items() if key_of(d) == key_of(n)]
+                return sum(same) / len(same) if same else 60
+            since_last = time.time() - os.path.getmtime(log)
+            eta = sum(est(n) for n in todo) - min(since_last, est(todo[0]))
+            lines += [f"    กำลังทำ : {todo[0]}  (ทำมาแล้ว {fmt_time(since_last)})",
+                      f"    เหลือประมาณ: {fmt_time(eta)}"]
+        elif todo:
+            lines.append("    ⚠️ ไม่ได้รันอยู่ แต่ยังไม่ครบ")
+    return lines
+
+
 def show():
     print(time.strftime("%H:%M:%S"), "— ความคืบหน้าการทดลอง\n")
     print("\n".join(main_run()))
     print()
     print("\n".join(cnn_b_run()))
+    pf = perfold_runs()
+    if pf:
+        print()
+        print("\n".join(pf))
 
 
 if __name__ == "__main__":

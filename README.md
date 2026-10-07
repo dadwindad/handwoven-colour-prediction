@@ -2,11 +2,11 @@
 
 This repository contains the data set, analysis code and results for the paper
 
-> Vongpramate, D., Boonket, K., Hobanthad, S., Khuntong, P., Siapthaisong, W. and Saenkham, T.
+> Vongpramate, D., Boonkate, K., Hobanthad, S., Khuntong, P., Siapthaisong, W. and Saenkham, T.
 > *Shift-aware evaluation and physics-guided residual learning for colour prediction of handwoven fabrics.*
 > Manuscript submitted to Expert Systems with Applications.
 
-**Version 1.1.1.** Archived on Zenodo: [doi:10.5281/zenodo.23205538](https://doi.org/10.5281/zenodo.23205538)
+**Version 1.1.2.** Archived on Zenodo: [doi:10.5281/zenodo.23205538](https://doi.org/10.5281/zenodo.23205538)
 (concept DOI, all versions). Version 1.1.x changes the evaluation protocol (see *Changes* below) and adds the few-shot
 loom-calibration experiment; versions 1.0.x contain the earlier protocol.
 
@@ -106,6 +106,10 @@ Inner (tuning) cross-validation mirrors the outer scheme: shuffled 3-fold for ra
 groups of held-out yarns for leave-one-yarn-out, and leave-one-training-loom-out for
 leave-one-loom-out (`weavecolor.evaluate.inner_cv`). Under leave-one-yarn-out a fabric of two
 different yarns is held out in two folds and its error is the mean of both.
+
+### Changes in 1.1.2
+
+- Author name corrected to Kittikoon Boonkate (metadata only; data, code and results unchanged).
 
 ### Changes in 1.1.1
 

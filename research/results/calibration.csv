@@ -1,0 +1,701 @@
+model,strategy,n,loom,mean_de00
+S-N (Stearns-Noechel),random,0,1,5.3341
+S-N (Stearns-Noechel),random,1,1,6.1278
+S-N (Stearns-Noechel),cross-warp,1,1,6.5822
+S-N (Stearns-Noechel),placebo,1,1,6.1014
+S-N (Stearns-Noechel),within-warp,1,1,4.7647
+S-N (Stearns-Noechel),swatch,1,1,5.6181
+S-N (Stearns-Noechel),swatch-baseline,0,1,5.3964
+S-N (Stearns-Noechel),random,2,1,5.3001
+S-N (Stearns-Noechel),cross-warp,2,1,5.9251
+S-N (Stearns-Noechel),placebo,2,1,5.6793
+S-N (Stearns-Noechel),within-warp,2,1,4.2026
+S-N (Stearns-Noechel),random,3,1,5.0293
+S-N (Stearns-Noechel),cross-warp,3,1,5.8370
+S-N (Stearns-Noechel),placebo,3,1,5.4592
+S-N (Stearns-Noechel),within-warp,3,1,3.8982
+S-N (Stearns-Noechel),random,5,1,4.7890
+S-N (Stearns-Noechel),cross-warp,5,1,5.7078
+S-N (Stearns-Noechel),placebo,5,1,5.3895
+S-N (Stearns-Noechel),within-warp,5,1,3.7350
+S-N (Stearns-Noechel),random,10,1,4.6078
+S-N (Stearns-Noechel),random,0,2,5.1640
+S-N (Stearns-Noechel),random,1,2,5.8132
+S-N (Stearns-Noechel),cross-warp,1,2,6.1263
+S-N (Stearns-Noechel),placebo,1,2,5.7246
+S-N (Stearns-Noechel),within-warp,1,2,4.4364
+S-N (Stearns-Noechel),swatch,1,2,3.6320
+S-N (Stearns-Noechel),swatch-baseline,0,2,5.2392
+S-N (Stearns-Noechel),random,2,2,4.9959
+S-N (Stearns-Noechel),cross-warp,2,2,5.7269
+S-N (Stearns-Noechel),placebo,2,2,5.2075
+S-N (Stearns-Noechel),within-warp,2,2,3.7922
+S-N (Stearns-Noechel),random,3,2,4.7359
+S-N (Stearns-Noechel),cross-warp,3,2,5.5569
+S-N (Stearns-Noechel),placebo,3,2,4.9647
+S-N (Stearns-Noechel),within-warp,3,2,3.5309
+S-N (Stearns-Noechel),random,5,2,4.4616
+S-N (Stearns-Noechel),cross-warp,5,2,5.3748
+S-N (Stearns-Noechel),placebo,5,2,4.7985
+S-N (Stearns-Noechel),within-warp,5,2,3.3751
+S-N (Stearns-Noechel),random,10,2,4.2602
+S-N (Stearns-Noechel),random,0,3,3.4025
+S-N (Stearns-Noechel),random,1,3,3.2445
+S-N (Stearns-Noechel),cross-warp,1,3,3.4241
+S-N (Stearns-Noechel),placebo,1,3,5.1562
+S-N (Stearns-Noechel),within-warp,1,3,3.2229
+S-N (Stearns-Noechel),swatch,1,3,2.5381
+S-N (Stearns-Noechel),swatch-baseline,0,3,3.4516
+S-N (Stearns-Noechel),random,2,3,2.9526
+S-N (Stearns-Noechel),cross-warp,2,3,3.0127
+S-N (Stearns-Noechel),placebo,2,3,4.1416
+S-N (Stearns-Noechel),within-warp,2,3,2.7740
+S-N (Stearns-Noechel),random,3,3,2.8078
+S-N (Stearns-Noechel),cross-warp,3,3,2.8189
+S-N (Stearns-Noechel),placebo,3,3,3.9981
+S-N (Stearns-Noechel),within-warp,3,3,2.6549
+S-N (Stearns-Noechel),random,5,3,2.5806
+S-N (Stearns-Noechel),cross-warp,5,3,2.7457
+S-N (Stearns-Noechel),placebo,5,3,3.7310
+S-N (Stearns-Noechel),within-warp,5,3,2.4550
+S-N (Stearns-Noechel),random,10,3,2.4212
+S-N (Stearns-Noechel),random,0,4,4.2372
+S-N (Stearns-Noechel),random,1,4,4.6853
+S-N (Stearns-Noechel),cross-warp,1,4,4.8984
+S-N (Stearns-Noechel),placebo,1,4,5.5271
+S-N (Stearns-Noechel),within-warp,1,4,4.0714
+S-N (Stearns-Noechel),swatch,1,4,3.4773
+S-N (Stearns-Noechel),swatch-baseline,0,4,4.2549
+S-N (Stearns-Noechel),random,2,4,3.9593
+S-N (Stearns-Noechel),cross-warp,2,4,4.2731
+S-N (Stearns-Noechel),placebo,2,4,4.9952
+S-N (Stearns-Noechel),within-warp,2,4,3.6811
+S-N (Stearns-Noechel),random,3,4,3.6704
+S-N (Stearns-Noechel),cross-warp,3,4,4.0681
+S-N (Stearns-Noechel),placebo,3,4,4.6899
+S-N (Stearns-Noechel),within-warp,3,4,3.2591
+S-N (Stearns-Noechel),random,5,4,3.4753
+S-N (Stearns-Noechel),cross-warp,5,4,3.8217
+S-N (Stearns-Noechel),placebo,5,4,4.2336
+S-N (Stearns-Noechel),within-warp,5,4,3.0034
+S-N (Stearns-Noechel),random,10,4,3.2580
+S-N (Stearns-Noechel),random,0,5,5.8099
+S-N (Stearns-Noechel),random,1,5,6.1264
+S-N (Stearns-Noechel),cross-warp,1,5,6.6302
+S-N (Stearns-Noechel),placebo,1,5,6.0989
+S-N (Stearns-Noechel),within-warp,1,5,4.3946
+S-N (Stearns-Noechel),swatch,1,5,4.1273
+S-N (Stearns-Noechel),swatch-baseline,0,5,5.7870
+S-N (Stearns-Noechel),random,2,5,5.3925
+S-N (Stearns-Noechel),cross-warp,2,5,6.0517
+S-N (Stearns-Noechel),placebo,2,5,5.6440
+S-N (Stearns-Noechel),within-warp,2,5,3.6978
+S-N (Stearns-Noechel),random,3,5,4.9379
+S-N (Stearns-Noechel),cross-warp,3,5,5.8778
+S-N (Stearns-Noechel),placebo,3,5,5.3580
+S-N (Stearns-Noechel),within-warp,3,5,3.3843
+S-N (Stearns-Noechel),random,5,5,4.6729
+S-N (Stearns-Noechel),cross-warp,5,5,5.7085
+S-N (Stearns-Noechel),placebo,5,5,5.1337
+S-N (Stearns-Noechel),within-warp,5,5,3.1811
+S-N (Stearns-Noechel),random,10,5,4.3671
+ML ล้วน: GP,random,0,1,15.7610
+ML ล้วน: GP,random,1,1,22.6097
+ML ล้วน: GP,cross-warp,1,1,25.8376
+ML ล้วน: GP,placebo,1,1,17.9813
+ML ล้วน: GP,within-warp,1,1,6.9055
+ML ล้วน: GP,swatch,1,1,9.6365
+ML ล้วน: GP,swatch-baseline,0,1,15.8579
+ML ล้วน: GP,random,2,1,22.2164
+ML ล้วน: GP,cross-warp,2,1,25.4237
+ML ล้วน: GP,placebo,2,1,17.6052
+ML ล้วน: GP,within-warp,2,1,6.1944
+ML ล้วน: GP,random,3,1,22.3400
+ML ล้วน: GP,cross-warp,3,1,25.2544
+ML ล้วน: GP,placebo,3,1,17.5926
+ML ล้วน: GP,within-warp,3,1,5.9082
+ML ล้วน: GP,random,5,1,20.2405
+ML ล้วน: GP,cross-warp,5,1,25.1788
+ML ล้วน: GP,placebo,5,1,17.4096
+ML ล้วน: GP,within-warp,5,1,5.4040
+ML ล้วน: GP,random,10,1,20.0324
+ML ล้วน: GP,random,0,2,10.1359
+ML ล้วน: GP,random,1,2,11.1503
+ML ล้วน: GP,cross-warp,1,2,13.2878
+ML ล้วน: GP,placebo,1,2,13.4339
+ML ล้วน: GP,within-warp,1,2,3.6766
+ML ล้วน: GP,swatch,1,2,3.1602
+ML ล้วน: GP,swatch-baseline,0,2,10.1728
+ML ล้วน: GP,random,2,2,10.5806
+ML ล้วน: GP,cross-warp,2,2,12.9825
+ML ล้วน: GP,placebo,2,2,12.7596
+ML ล้วน: GP,within-warp,2,2,3.2509
+ML ล้วน: GP,random,3,2,9.5773
+ML ล้วน: GP,cross-warp,3,2,12.9484
+ML ล้วน: GP,placebo,3,2,12.0807
+ML ล้วน: GP,within-warp,3,2,3.0440
+ML ล้วน: GP,random,5,2,9.2120
+ML ล้วน: GP,cross-warp,5,2,12.8363
+ML ล้วน: GP,placebo,5,2,11.1548
+ML ล้วน: GP,within-warp,5,2,2.8071
+ML ล้วน: GP,random,10,2,8.8091
+ML ล้วน: GP,random,0,3,7.2636
+ML ล้วน: GP,random,1,3,9.0656
+ML ล้วน: GP,cross-warp,1,3,10.5687
+ML ล้วน: GP,placebo,1,3,13.4677
+ML ล้วน: GP,within-warp,1,3,2.5195
+ML ล้วน: GP,swatch,1,3,2.0759
+ML ล้วน: GP,swatch-baseline,0,3,7.3194
+ML ล้วน: GP,random,2,3,7.6776
+ML ล้วน: GP,cross-warp,2,3,10.5634
+ML ล้วน: GP,placebo,2,3,11.9968
+ML ล้วน: GP,within-warp,2,3,2.2047
+ML ล้วน: GP,random,3,3,7.4979
+ML ล้วน: GP,cross-warp,3,3,10.5072
+ML ล้วน: GP,placebo,3,3,11.8267
+ML ล้วน: GP,within-warp,3,3,2.0571
+ML ล้วน: GP,random,5,3,7.0020
+ML ล้วน: GP,cross-warp,5,3,10.4900
+ML ล้วน: GP,placebo,5,3,10.9832
+ML ล้วน: GP,within-warp,5,3,1.9495
+ML ล้วน: GP,random,10,3,6.5342
+ML ล้วน: GP,random,0,4,3.6656
+ML ล้วน: GP,random,1,4,5.2627
+ML ล้วน: GP,cross-warp,1,4,5.3534
+ML ล้วน: GP,placebo,1,4,9.0887
+ML ล้วน: GP,within-warp,1,4,3.4026
+ML ล้วน: GP,swatch,1,4,3.0425
+ML ล้วน: GP,swatch-baseline,0,4,3.6637
+ML ล้วน: GP,random,2,4,4.3438
+ML ล้วน: GP,cross-warp,2,4,5.1411
+ML ล้วน: GP,placebo,2,4,9.3101
+ML ล้วน: GP,within-warp,2,4,3.0344
+ML ล้วน: GP,random,3,4,4.1686
+ML ล้วน: GP,cross-warp,3,4,5.0298
+ML ล้วน: GP,placebo,3,4,9.0294
+ML ล้วน: GP,within-warp,3,4,2.8300
+ML ล้วน: GP,random,5,4,3.8925
+ML ล้วน: GP,cross-warp,5,4,4.9193
+ML ล้วน: GP,placebo,5,4,8.5080
+ML ล้วน: GP,within-warp,5,4,2.6613
+ML ล้วน: GP,random,10,4,3.6909
+ML ล้วน: GP,random,0,5,4.3203
+ML ล้วน: GP,random,1,5,6.4081
+ML ล้วน: GP,cross-warp,1,5,6.5053
+ML ล้วน: GP,placebo,1,5,9.9286
+ML ล้วน: GP,within-warp,1,5,4.1234
+ML ล้วน: GP,swatch,1,5,3.9737
+ML ล้วน: GP,swatch-baseline,0,5,4.3718
+ML ล้วน: GP,random,2,5,5.3278
+ML ล้วน: GP,cross-warp,2,5,6.2519
+ML ล้วน: GP,placebo,2,5,9.7241
+ML ล้วน: GP,within-warp,2,5,3.7313
+ML ล้วน: GP,random,3,5,5.0174
+ML ล้วน: GP,cross-warp,3,5,5.9170
+ML ล้วน: GP,placebo,3,5,8.9853
+ML ล้วน: GP,within-warp,3,5,3.5040
+ML ล้วน: GP,random,5,5,4.7736
+ML ล้วน: GP,cross-warp,5,5,5.7507
+ML ล้วน: GP,placebo,5,5,8.4656
+ML ล้วน: GP,within-warp,5,5,3.3113
+ML ล้วน: GP,random,10,5,4.5007
+ML ล้วน: MLP (BPNN),random,0,1,8.3670
+ML ล้วน: MLP (BPNN),random,1,1,10.1489
+ML ล้วน: MLP (BPNN),cross-warp,1,1,11.0085
+ML ล้วน: MLP (BPNN),placebo,1,1,9.3067
+ML ล้วน: MLP (BPNN),within-warp,1,1,6.3049
+ML ล้วน: MLP (BPNN),swatch,1,1,8.8080
+ML ล้วน: MLP (BPNN),swatch-baseline,0,1,8.4657
+ML ล้วน: MLP (BPNN),random,2,1,9.0500
+ML ล้วน: MLP (BPNN),cross-warp,2,1,10.1689
+ML ล้วน: MLP (BPNN),placebo,2,1,9.1840
+ML ล้วน: MLP (BPNN),within-warp,2,1,5.3704
+ML ล้วน: MLP (BPNN),random,3,1,8.4025
+ML ล้วน: MLP (BPNN),cross-warp,3,1,10.0961
+ML ล้วน: MLP (BPNN),placebo,3,1,9.0266
+ML ล้วน: MLP (BPNN),within-warp,3,1,5.2366
+ML ล้วน: MLP (BPNN),random,5,1,8.0338
+ML ล้วน: MLP (BPNN),cross-warp,5,1,9.9020
+ML ล้วน: MLP (BPNN),placebo,5,1,8.9174
+ML ล้วน: MLP (BPNN),within-warp,5,1,4.8041
+ML ล้วน: MLP (BPNN),random,10,1,7.8189
+ML ล้วน: MLP (BPNN),random,0,2,4.0283
+ML ล้วน: MLP (BPNN),random,1,2,5.5027
+ML ล้วน: MLP (BPNN),cross-warp,1,2,6.0260
+ML ล้วน: MLP (BPNN),placebo,1,2,6.9374
+ML ล้วน: MLP (BPNN),within-warp,1,2,3.7886
+ML ล้วน: MLP (BPNN),swatch,1,2,3.7320
+ML ล้วน: MLP (BPNN),swatch-baseline,0,2,4.1178
+ML ล้วน: MLP (BPNN),random,2,2,4.8622
+ML ล้วน: MLP (BPNN),cross-warp,2,2,5.6387
+ML ล้วน: MLP (BPNN),placebo,2,2,6.2508
+ML ล้วน: MLP (BPNN),within-warp,2,2,3.4133
+ML ล้วน: MLP (BPNN),random,3,2,4.6154
+ML ล้วน: MLP (BPNN),cross-warp,3,2,5.5256
+ML ล้วน: MLP (BPNN),placebo,3,2,5.9171
+ML ล้วน: MLP (BPNN),within-warp,3,2,3.1979
+ML ล้วน: MLP (BPNN),random,5,2,4.3924
+ML ล้วน: MLP (BPNN),cross-warp,5,2,5.4173
+ML ล้วน: MLP (BPNN),placebo,5,2,5.7276
+ML ล้วน: MLP (BPNN),within-warp,5,2,2.9030
+ML ล้วน: MLP (BPNN),random,10,2,4.2213
+ML ล้วน: MLP (BPNN),random,0,3,4.1698
+ML ล้วน: MLP (BPNN),random,1,3,4.1128
+ML ล้วน: MLP (BPNN),cross-warp,1,3,4.4045
+ML ล้วน: MLP (BPNN),placebo,1,3,7.1998
+ML ล้วน: MLP (BPNN),within-warp,1,3,3.2397
+ML ล้วน: MLP (BPNN),swatch,1,3,2.8995
+ML ล้วน: MLP (BPNN),swatch-baseline,0,3,4.1935
+ML ล้วน: MLP (BPNN),random,2,3,3.5324
+ML ล้วน: MLP (BPNN),cross-warp,2,3,4.1488
+ML ล้วน: MLP (BPNN),placebo,2,3,6.1112
+ML ล้วน: MLP (BPNN),within-warp,2,3,2.7670
+ML ล้วน: MLP (BPNN),random,3,3,3.4124
+ML ล้วน: MLP (BPNN),cross-warp,3,3,3.9228
+ML ล้วน: MLP (BPNN),placebo,3,3,5.7860
+ML ล้วน: MLP (BPNN),within-warp,3,3,2.6515
+ML ล้วน: MLP (BPNN),random,5,3,3.1622
+ML ล้วน: MLP (BPNN),cross-warp,5,3,3.7935
+ML ล้วน: MLP (BPNN),placebo,5,3,5.3513
+ML ล้วน: MLP (BPNN),within-warp,5,3,2.4585
+ML ล้วน: MLP (BPNN),random,10,3,3.0573
+ML ล้วน: MLP (BPNN),random,0,4,3.4356
+ML ล้วน: MLP (BPNN),random,1,4,4.5897
+ML ล้วน: MLP (BPNN),cross-warp,1,4,4.9417
+ML ล้วน: MLP (BPNN),placebo,1,4,6.6442
+ML ล้วน: MLP (BPNN),within-warp,1,4,3.5658
+ML ล้วน: MLP (BPNN),swatch,1,4,2.8414
+ML ล้วน: MLP (BPNN),swatch-baseline,0,4,3.4498
+ML ล้วน: MLP (BPNN),random,2,4,4.0212
+ML ล้วน: MLP (BPNN),cross-warp,2,4,4.4981
+ML ล้วน: MLP (BPNN),placebo,2,4,5.8049
+ML ล้วน: MLP (BPNN),within-warp,2,4,3.0379
+ML ล้วน: MLP (BPNN),random,3,4,3.7414
+ML ล้วน: MLP (BPNN),cross-warp,3,4,4.4650
+ML ล้วน: MLP (BPNN),placebo,3,4,5.6188
+ML ล้วน: MLP (BPNN),within-warp,3,4,2.8488
+ML ล้วน: MLP (BPNN),random,5,4,3.4648
+ML ล้วน: MLP (BPNN),cross-warp,5,4,4.3952
+ML ล้วน: MLP (BPNN),placebo,5,4,5.2415
+ML ล้วน: MLP (BPNN),within-warp,5,4,2.6269
+ML ล้วน: MLP (BPNN),random,10,4,3.3186
+ML ล้วน: MLP (BPNN),random,0,5,4.8318
+ML ล้วน: MLP (BPNN),random,1,5,6.4101
+ML ล้วน: MLP (BPNN),cross-warp,1,5,6.7858
+ML ล้วน: MLP (BPNN),placebo,1,5,7.4168
+ML ล้วน: MLP (BPNN),within-warp,1,5,4.5963
+ML ล้วน: MLP (BPNN),swatch,1,5,4.4470
+ML ล้วน: MLP (BPNN),swatch-baseline,0,5,4.8507
+ML ล้วน: MLP (BPNN),random,2,5,5.5957
+ML ล้วน: MLP (BPNN),cross-warp,2,5,6.3313
+ML ล้วน: MLP (BPNN),placebo,2,5,7.2123
+ML ล้วน: MLP (BPNN),within-warp,2,5,4.0506
+ML ล้วน: MLP (BPNN),random,3,5,5.2626
+ML ล้วน: MLP (BPNN),cross-warp,3,5,6.2210
+ML ล้วน: MLP (BPNN),placebo,3,5,6.9580
+ML ล้วน: MLP (BPNN),within-warp,3,5,3.7826
+ML ล้วน: MLP (BPNN),random,5,5,4.9698
+ML ล้วน: MLP (BPNN),cross-warp,5,5,5.9579
+ML ล้วน: MLP (BPNN),placebo,5,5,6.5734
+ML ล้วน: MLP (BPNN),within-warp,5,5,3.6120
+ML ล้วน: MLP (BPNN),random,10,5,4.7735
+ML ล้วน: XGBoost,random,0,1,5.7464
+ML ล้วน: XGBoost,random,1,1,7.3848
+ML ล้วน: XGBoost,cross-warp,1,1,8.0340
+ML ล้วน: XGBoost,placebo,1,1,7.8395
+ML ล้วน: XGBoost,within-warp,1,1,4.2806
+ML ล้วน: XGBoost,swatch,1,1,6.8761
+ML ล้วน: XGBoost,swatch-baseline,0,1,5.6673
+ML ล้วน: XGBoost,random,2,1,6.3846
+ML ล้วน: XGBoost,cross-warp,2,1,7.5574
+ML ล้วน: XGBoost,placebo,2,1,6.9236
+ML ล้วน: XGBoost,within-warp,2,1,3.7470
+ML ล้วน: XGBoost,random,3,1,6.0425
+ML ล้วน: XGBoost,cross-warp,3,1,7.6338
+ML ล้วน: XGBoost,placebo,3,1,6.7866
+ML ล้วน: XGBoost,within-warp,3,1,3.3778
+ML ล้วน: XGBoost,random,5,1,5.8414
+ML ล้วน: XGBoost,cross-warp,5,1,7.6196
+ML ล้วน: XGBoost,placebo,5,1,6.4062
+ML ล้วน: XGBoost,within-warp,5,1,3.2713
+ML ล้วน: XGBoost,random,10,1,5.5084
+ML ล้วน: XGBoost,random,0,2,7.4604
+ML ล้วน: XGBoost,random,1,2,8.8443
+ML ล้วน: XGBoost,cross-warp,1,2,9.9323
+ML ล้วน: XGBoost,placebo,1,2,9.3890
+ML ล้วน: XGBoost,within-warp,1,2,3.2487
+ML ล้วน: XGBoost,swatch,1,2,3.8414
+ML ล้วน: XGBoost,swatch-baseline,0,2,7.5759
+ML ล้วน: XGBoost,random,2,2,7.8123
+ML ล้วน: XGBoost,cross-warp,2,2,9.9127
+ML ล้วน: XGBoost,placebo,2,2,8.8778
+ML ล้วน: XGBoost,within-warp,2,2,2.8404
+ML ล้วน: XGBoost,random,3,2,7.3774
+ML ล้วน: XGBoost,cross-warp,3,2,9.7789
+ML ล้วน: XGBoost,placebo,3,2,8.5432
+ML ล้วน: XGBoost,within-warp,3,2,2.7414
+ML ล้วน: XGBoost,random,5,2,7.0240
+ML ล้วน: XGBoost,cross-warp,5,2,9.7514
+ML ล้วน: XGBoost,placebo,5,2,8.5560
+ML ล้วน: XGBoost,within-warp,5,2,2.5302
+ML ล้วน: XGBoost,random,10,2,6.8706
+ML ล้วน: XGBoost,random,0,3,5.9976
+ML ล้วน: XGBoost,random,1,3,6.4353
+ML ล้วน: XGBoost,cross-warp,1,3,7.2468
+ML ล้วน: XGBoost,placebo,1,3,9.0228
+ML ล้วน: XGBoost,within-warp,1,3,2.3090
+ML ล้วน: XGBoost,swatch,1,3,2.5385
+ML ล้วน: XGBoost,swatch-baseline,0,3,6.0611
+ML ล้วน: XGBoost,random,2,3,5.7073
+ML ล้วน: XGBoost,cross-warp,2,3,7.3073
+ML ล้วน: XGBoost,placebo,2,3,8.1112
+ML ล้วน: XGBoost,within-warp,2,3,2.0982
+ML ล้วน: XGBoost,random,3,3,5.3320
+ML ล้วน: XGBoost,cross-warp,3,3,7.2587
+ML ล้วน: XGBoost,placebo,3,3,7.7940
+ML ล้วน: XGBoost,within-warp,3,3,1.8877
+ML ล้วน: XGBoost,random,5,3,5.0784
+ML ล้วน: XGBoost,cross-warp,5,3,7.2616
+ML ล้วน: XGBoost,placebo,5,3,7.4109
+ML ล้วน: XGBoost,within-warp,5,3,1.8374
+ML ล้วน: XGBoost,random,10,3,4.9216
+ML ล้วน: XGBoost,random,0,4,3.9901
+ML ล้วน: XGBoost,random,1,4,4.2854
+ML ล้วน: XGBoost,cross-warp,1,4,4.7633
+ML ล้วน: XGBoost,placebo,1,4,7.3337
+ML ล้วน: XGBoost,within-warp,1,4,2.8556
+ML ล้วน: XGBoost,swatch,1,4,2.3767
+ML ล้วน: XGBoost,swatch-baseline,0,4,3.9983
+ML ล้วน: XGBoost,random,2,4,3.7894
+ML ล้วน: XGBoost,cross-warp,2,4,4.4308
+ML ล้วน: XGBoost,placebo,2,4,5.9631
+ML ล้วน: XGBoost,within-warp,2,4,2.3141
+ML ล้วน: XGBoost,random,3,4,3.5498
+ML ล้วน: XGBoost,cross-warp,3,4,4.3682
+ML ล้วน: XGBoost,placebo,3,4,5.5632
+ML ล้วน: XGBoost,within-warp,3,4,2.2423
+ML ล้วน: XGBoost,random,5,4,3.3435
+ML ล้วน: XGBoost,cross-warp,5,4,4.2418
+ML ล้วน: XGBoost,placebo,5,4,5.0877
+ML ล้วน: XGBoost,within-warp,5,4,2.1372
+ML ล้วน: XGBoost,random,10,4,3.2017
+ML ล้วน: XGBoost,random,0,5,6.3622
+ML ล้วน: XGBoost,random,1,5,7.7495
+ML ล้วน: XGBoost,cross-warp,1,5,8.7669
+ML ล้วน: XGBoost,placebo,1,5,8.4939
+ML ล้วน: XGBoost,within-warp,1,5,4.5935
+ML ล้วน: XGBoost,swatch,1,5,4.1554
+ML ล้วน: XGBoost,swatch-baseline,0,5,6.4611
+ML ล้วน: XGBoost,random,2,5,6.8423
+ML ล้วน: XGBoost,cross-warp,2,5,8.2010
+ML ล้วน: XGBoost,placebo,2,5,7.6117
+ML ล้วน: XGBoost,within-warp,2,5,4.0539
+ML ล้วน: XGBoost,random,3,5,6.5505
+ML ล้วน: XGBoost,cross-warp,3,5,8.1977
+ML ล้วน: XGBoost,placebo,3,5,7.5338
+ML ล้วน: XGBoost,within-warp,3,5,3.8357
+ML ล้วน: XGBoost,random,5,5,6.2922
+ML ล้วน: XGBoost,cross-warp,5,5,8.1321
+ML ล้วน: XGBoost,placebo,5,5,7.1873
+ML ล้วน: XGBoost,within-warp,5,5,3.4666
+ML ล้วน: XGBoost,random,10,5,6.0069
+Hybrid: S-N + GP,random,0,1,4.4307
+Hybrid: S-N + GP,random,1,1,5.5645
+Hybrid: S-N + GP,cross-warp,1,1,5.8575
+Hybrid: S-N + GP,placebo,1,1,6.2415
+Hybrid: S-N + GP,within-warp,1,1,4.0887
+Hybrid: S-N + GP,swatch,1,1,5.2821
+Hybrid: S-N + GP,swatch-baseline,0,1,4.5273
+Hybrid: S-N + GP,random,2,1,4.8618
+Hybrid: S-N + GP,cross-warp,2,1,5.4683
+Hybrid: S-N + GP,placebo,2,1,5.4354
+Hybrid: S-N + GP,within-warp,2,1,3.7751
+Hybrid: S-N + GP,random,3,1,4.5627
+Hybrid: S-N + GP,cross-warp,3,1,5.3726
+Hybrid: S-N + GP,placebo,3,1,5.3098
+Hybrid: S-N + GP,within-warp,3,1,3.4882
+Hybrid: S-N + GP,random,5,1,4.3444
+Hybrid: S-N + GP,cross-warp,5,1,5.1189
+Hybrid: S-N + GP,placebo,5,1,5.1097
+Hybrid: S-N + GP,within-warp,5,1,3.2626
+Hybrid: S-N + GP,random,10,1,4.1592
+Hybrid: S-N + GP,random,0,2,4.2028
+Hybrid: S-N + GP,random,1,2,5.6150
+Hybrid: S-N + GP,cross-warp,1,2,6.0905
+Hybrid: S-N + GP,placebo,1,2,6.0727
+Hybrid: S-N + GP,within-warp,1,2,3.6397
+Hybrid: S-N + GP,swatch,1,2,2.9533
+Hybrid: S-N + GP,swatch-baseline,0,2,4.2573
+Hybrid: S-N + GP,random,2,2,4.8734
+Hybrid: S-N + GP,cross-warp,2,2,5.7850
+Hybrid: S-N + GP,placebo,2,2,5.4334
+Hybrid: S-N + GP,within-warp,2,2,3.1538
+Hybrid: S-N + GP,random,3,2,4.6777
+Hybrid: S-N + GP,cross-warp,3,2,5.7589
+Hybrid: S-N + GP,placebo,3,2,5.0814
+Hybrid: S-N + GP,within-warp,3,2,2.9427
+Hybrid: S-N + GP,random,5,2,4.3919
+Hybrid: S-N + GP,cross-warp,5,2,5.5820
+Hybrid: S-N + GP,placebo,5,2,4.9485
+Hybrid: S-N + GP,within-warp,5,2,2.7137
+Hybrid: S-N + GP,random,10,2,4.2261
+Hybrid: S-N + GP,random,0,3,3.5081
+Hybrid: S-N + GP,random,1,3,4.5727
+Hybrid: S-N + GP,cross-warp,1,3,5.0163
+Hybrid: S-N + GP,placebo,1,3,6.1174
+Hybrid: S-N + GP,within-warp,1,3,2.5034
+Hybrid: S-N + GP,swatch,1,3,2.1780
+Hybrid: S-N + GP,swatch-baseline,0,3,3.5470
+Hybrid: S-N + GP,random,2,3,4.0085
+Hybrid: S-N + GP,cross-warp,2,3,5.0962
+Hybrid: S-N + GP,placebo,2,3,5.2371
+Hybrid: S-N + GP,within-warp,2,3,2.1669
+Hybrid: S-N + GP,random,3,3,3.8575
+Hybrid: S-N + GP,cross-warp,3,3,4.9190
+Hybrid: S-N + GP,placebo,3,3,4.9757
+Hybrid: S-N + GP,within-warp,3,3,2.1090
+Hybrid: S-N + GP,random,5,3,3.6052
+Hybrid: S-N + GP,cross-warp,5,3,4.8155
+Hybrid: S-N + GP,placebo,5,3,4.8339
+Hybrid: S-N + GP,within-warp,5,3,1.9917
+Hybrid: S-N + GP,random,10,3,3.4261
+Hybrid: S-N + GP,random,0,4,3.7924
+Hybrid: S-N + GP,random,1,4,5.4100
+Hybrid: S-N + GP,cross-warp,1,4,5.8256
+Hybrid: S-N + GP,placebo,1,4,5.9961
+Hybrid: S-N + GP,within-warp,1,4,3.4474
+Hybrid: S-N + GP,swatch,1,4,3.0035
+Hybrid: S-N + GP,swatch-baseline,0,4,3.7860
+Hybrid: S-N + GP,random,2,4,4.7649
+Hybrid: S-N + GP,cross-warp,2,4,5.6235
+Hybrid: S-N + GP,placebo,2,4,5.1708
+Hybrid: S-N + GP,within-warp,2,4,2.8325
+Hybrid: S-N + GP,random,3,4,4.3500
+Hybrid: S-N + GP,cross-warp,3,4,5.4918
+Hybrid: S-N + GP,placebo,3,4,4.8909
+Hybrid: S-N + GP,within-warp,3,4,2.6862
+Hybrid: S-N + GP,random,5,4,4.1347
+Hybrid: S-N + GP,cross-warp,5,4,5.4385
+Hybrid: S-N + GP,placebo,5,4,4.7746
+Hybrid: S-N + GP,within-warp,5,4,2.5115
+Hybrid: S-N + GP,random,10,4,3.9527
+Hybrid: S-N + GP,random,0,5,4.2323
+Hybrid: S-N + GP,random,1,5,5.7378
+Hybrid: S-N + GP,cross-warp,1,5,6.3370
+Hybrid: S-N + GP,placebo,1,5,6.6043
+Hybrid: S-N + GP,within-warp,1,5,4.2354
+Hybrid: S-N + GP,swatch,1,5,3.6187
+Hybrid: S-N + GP,swatch-baseline,0,5,4.2851
+Hybrid: S-N + GP,random,2,5,5.2085
+Hybrid: S-N + GP,cross-warp,2,5,6.0019
+Hybrid: S-N + GP,placebo,2,5,5.8188
+Hybrid: S-N + GP,within-warp,2,5,3.5735
+Hybrid: S-N + GP,random,3,5,4.8760
+Hybrid: S-N + GP,cross-warp,3,5,5.9036
+Hybrid: S-N + GP,placebo,3,5,5.5158
+Hybrid: S-N + GP,within-warp,3,5,3.4274
+Hybrid: S-N + GP,random,5,5,4.6045
+Hybrid: S-N + GP,cross-warp,5,5,5.7274
+Hybrid: S-N + GP,placebo,5,5,5.3937
+Hybrid: S-N + GP,within-warp,5,5,3.1266
+Hybrid: S-N + GP,random,10,5,4.3814
+Hybrid: S-N + MLP (BPNN),random,0,1,6.5982
+Hybrid: S-N + MLP (BPNN),random,1,1,8.5920
+Hybrid: S-N + MLP (BPNN),cross-warp,1,1,9.4463
+Hybrid: S-N + MLP (BPNN),placebo,1,1,7.2475
+Hybrid: S-N + MLP (BPNN),within-warp,1,1,5.0121
+Hybrid: S-N + MLP (BPNN),swatch,1,1,6.9263
+Hybrid: S-N + MLP (BPNN),swatch-baseline,0,1,6.6271
+Hybrid: S-N + MLP (BPNN),random,2,1,7.5876
+Hybrid: S-N + MLP (BPNN),cross-warp,2,1,8.8713
+Hybrid: S-N + MLP (BPNN),placebo,2,1,7.0412
+Hybrid: S-N + MLP (BPNN),within-warp,2,1,4.5668
+Hybrid: S-N + MLP (BPNN),random,3,1,7.2101
+Hybrid: S-N + MLP (BPNN),cross-warp,3,1,8.8000
+Hybrid: S-N + MLP (BPNN),placebo,3,1,6.9387
+Hybrid: S-N + MLP (BPNN),within-warp,3,1,4.3127
+Hybrid: S-N + MLP (BPNN),random,5,1,6.9059
+Hybrid: S-N + MLP (BPNN),cross-warp,5,1,8.6102
+Hybrid: S-N + MLP (BPNN),placebo,5,1,6.8463
+Hybrid: S-N + MLP (BPNN),within-warp,5,1,4.1153
+Hybrid: S-N + MLP (BPNN),random,10,1,6.7260
+Hybrid: S-N + MLP (BPNN),random,0,2,3.3872
+Hybrid: S-N + MLP (BPNN),random,1,2,4.6170
+Hybrid: S-N + MLP (BPNN),cross-warp,1,2,5.0299
+Hybrid: S-N + MLP (BPNN),placebo,1,2,5.5941
+Hybrid: S-N + MLP (BPNN),within-warp,1,2,3.0538
+Hybrid: S-N + MLP (BPNN),swatch,1,2,3.7918
+Hybrid: S-N + MLP (BPNN),swatch-baseline,0,2,3.4163
+Hybrid: S-N + MLP (BPNN),random,2,2,3.9649
+Hybrid: S-N + MLP (BPNN),cross-warp,2,2,4.5543
+Hybrid: S-N + MLP (BPNN),placebo,2,2,4.6397
+Hybrid: S-N + MLP (BPNN),within-warp,2,2,2.7642
+Hybrid: S-N + MLP (BPNN),random,3,2,3.7815
+Hybrid: S-N + MLP (BPNN),cross-warp,3,2,4.4971
+Hybrid: S-N + MLP (BPNN),placebo,3,2,4.5897
+Hybrid: S-N + MLP (BPNN),within-warp,3,2,2.5958
+Hybrid: S-N + MLP (BPNN),random,5,2,3.6248
+Hybrid: S-N + MLP (BPNN),cross-warp,5,2,4.3738
+Hybrid: S-N + MLP (BPNN),placebo,5,2,4.3232
+Hybrid: S-N + MLP (BPNN),within-warp,5,2,2.4425
+Hybrid: S-N + MLP (BPNN),random,10,2,3.4662
+Hybrid: S-N + MLP (BPNN),random,0,3,2.6985
+Hybrid: S-N + MLP (BPNN),random,1,3,3.2357
+Hybrid: S-N + MLP (BPNN),cross-warp,1,3,3.5326
+Hybrid: S-N + MLP (BPNN),placebo,1,3,5.7470
+Hybrid: S-N + MLP (BPNN),within-warp,1,3,2.1303
+Hybrid: S-N + MLP (BPNN),swatch,1,3,1.7186
+Hybrid: S-N + MLP (BPNN),swatch-baseline,0,3,2.7286
+Hybrid: S-N + MLP (BPNN),random,2,3,2.8081
+Hybrid: S-N + MLP (BPNN),cross-warp,2,3,3.3889
+Hybrid: S-N + MLP (BPNN),placebo,2,3,4.4893
+Hybrid: S-N + MLP (BPNN),within-warp,2,3,1.9038
+Hybrid: S-N + MLP (BPNN),random,3,3,2.6711
+Hybrid: S-N + MLP (BPNN),cross-warp,3,3,3.3118
+Hybrid: S-N + MLP (BPNN),placebo,3,3,4.1880
+Hybrid: S-N + MLP (BPNN),within-warp,3,3,1.7890
+Hybrid: S-N + MLP (BPNN),random,5,3,2.4817
+Hybrid: S-N + MLP (BPNN),cross-warp,5,3,3.1929
+Hybrid: S-N + MLP (BPNN),placebo,5,3,3.8795
+Hybrid: S-N + MLP (BPNN),within-warp,5,3,1.6772
+Hybrid: S-N + MLP (BPNN),random,10,3,2.3439
+Hybrid: S-N + MLP (BPNN),random,0,4,3.1153
+Hybrid: S-N + MLP (BPNN),random,1,4,4.3134
+Hybrid: S-N + MLP (BPNN),cross-warp,1,4,4.5801
+Hybrid: S-N + MLP (BPNN),placebo,1,4,5.9096
+Hybrid: S-N + MLP (BPNN),within-warp,1,4,3.3047
+Hybrid: S-N + MLP (BPNN),swatch,1,4,2.9556
+Hybrid: S-N + MLP (BPNN),swatch-baseline,0,4,3.1196
+Hybrid: S-N + MLP (BPNN),random,2,4,3.7256
+Hybrid: S-N + MLP (BPNN),cross-warp,2,4,4.1364
+Hybrid: S-N + MLP (BPNN),placebo,2,4,5.0070
+Hybrid: S-N + MLP (BPNN),within-warp,2,4,2.7710
+Hybrid: S-N + MLP (BPNN),random,3,4,3.4465
+Hybrid: S-N + MLP (BPNN),cross-warp,3,4,4.0146
+Hybrid: S-N + MLP (BPNN),placebo,3,4,4.7436
+Hybrid: S-N + MLP (BPNN),within-warp,3,4,2.5843
+Hybrid: S-N + MLP (BPNN),random,5,4,3.2261
+Hybrid: S-N + MLP (BPNN),cross-warp,5,4,3.9259
+Hybrid: S-N + MLP (BPNN),placebo,5,4,4.5167
+Hybrid: S-N + MLP (BPNN),within-warp,5,4,2.5070
+Hybrid: S-N + MLP (BPNN),random,10,4,3.0662
+Hybrid: S-N + MLP (BPNN),random,0,5,4.0044
+Hybrid: S-N + MLP (BPNN),random,1,5,5.7660
+Hybrid: S-N + MLP (BPNN),cross-warp,1,5,6.1044
+Hybrid: S-N + MLP (BPNN),placebo,1,5,6.1189
+Hybrid: S-N + MLP (BPNN),within-warp,1,5,3.9804
+Hybrid: S-N + MLP (BPNN),swatch,1,5,3.7318
+Hybrid: S-N + MLP (BPNN),swatch-baseline,0,5,4.0273
+Hybrid: S-N + MLP (BPNN),random,2,5,4.9318
+Hybrid: S-N + MLP (BPNN),cross-warp,2,5,5.6908
+Hybrid: S-N + MLP (BPNN),placebo,2,5,5.3897
+Hybrid: S-N + MLP (BPNN),within-warp,2,5,3.5008
+Hybrid: S-N + MLP (BPNN),random,3,5,4.7914
+Hybrid: S-N + MLP (BPNN),cross-warp,3,5,5.5686
+Hybrid: S-N + MLP (BPNN),placebo,3,5,4.9714
+Hybrid: S-N + MLP (BPNN),within-warp,3,5,3.3518
+Hybrid: S-N + MLP (BPNN),random,5,5,4.3785
+Hybrid: S-N + MLP (BPNN),cross-warp,5,5,5.3733
+Hybrid: S-N + MLP (BPNN),placebo,5,5,4.8045
+Hybrid: S-N + MLP (BPNN),within-warp,5,5,3.0645
+Hybrid: S-N + MLP (BPNN),random,10,5,4.1988
+Hybrid: S-N + XGBoost,random,0,1,4.5972
+Hybrid: S-N + XGBoost,random,1,1,6.1212
+Hybrid: S-N + XGBoost,cross-warp,1,1,6.5026
+Hybrid: S-N + XGBoost,placebo,1,1,5.7030
+Hybrid: S-N + XGBoost,within-warp,1,1,3.8455
+Hybrid: S-N + XGBoost,swatch,1,1,5.7234
+Hybrid: S-N + XGBoost,swatch-baseline,0,1,4.7016
+Hybrid: S-N + XGBoost,random,2,1,5.2963
+Hybrid: S-N + XGBoost,cross-warp,2,1,6.2176
+Hybrid: S-N + XGBoost,placebo,2,1,5.3564
+Hybrid: S-N + XGBoost,within-warp,2,1,3.4374
+Hybrid: S-N + XGBoost,random,3,1,5.1184
+Hybrid: S-N + XGBoost,cross-warp,3,1,6.2781
+Hybrid: S-N + XGBoost,placebo,3,1,5.1539
+Hybrid: S-N + XGBoost,within-warp,3,1,3.1569
+Hybrid: S-N + XGBoost,random,5,1,4.8383
+Hybrid: S-N + XGBoost,cross-warp,5,1,6.1596
+Hybrid: S-N + XGBoost,placebo,5,1,5.0878
+Hybrid: S-N + XGBoost,within-warp,5,1,2.9414
+Hybrid: S-N + XGBoost,random,10,1,4.6677
+Hybrid: S-N + XGBoost,random,0,2,3.9124
+Hybrid: S-N + XGBoost,random,1,2,5.1742
+Hybrid: S-N + XGBoost,cross-warp,1,2,5.8228
+Hybrid: S-N + XGBoost,placebo,1,2,5.6595
+Hybrid: S-N + XGBoost,within-warp,1,2,2.8231
+Hybrid: S-N + XGBoost,swatch,1,2,3.2791
+Hybrid: S-N + XGBoost,swatch-baseline,0,2,3.9780
+Hybrid: S-N + XGBoost,random,2,2,4.6767
+Hybrid: S-N + XGBoost,cross-warp,2,2,5.5362
+Hybrid: S-N + XGBoost,placebo,2,2,5.1498
+Hybrid: S-N + XGBoost,within-warp,2,2,2.5005
+Hybrid: S-N + XGBoost,random,3,2,4.3542
+Hybrid: S-N + XGBoost,cross-warp,3,2,5.4939
+Hybrid: S-N + XGBoost,placebo,3,2,4.8416
+Hybrid: S-N + XGBoost,within-warp,3,2,2.3262
+Hybrid: S-N + XGBoost,random,5,2,4.1008
+Hybrid: S-N + XGBoost,cross-warp,5,2,5.4000
+Hybrid: S-N + XGBoost,placebo,5,2,4.7210
+Hybrid: S-N + XGBoost,within-warp,5,2,2.1816
+Hybrid: S-N + XGBoost,random,10,2,3.9886
+Hybrid: S-N + XGBoost,random,0,3,2.4263
+Hybrid: S-N + XGBoost,random,1,3,2.2185
+Hybrid: S-N + XGBoost,cross-warp,1,3,2.4733
+Hybrid: S-N + XGBoost,placebo,1,3,4.8411
+Hybrid: S-N + XGBoost,within-warp,1,3,1.6202
+Hybrid: S-N + XGBoost,swatch,1,3,1.4297
+Hybrid: S-N + XGBoost,swatch-baseline,0,3,2.4584
+Hybrid: S-N + XGBoost,random,2,3,1.9709
+Hybrid: S-N + XGBoost,cross-warp,2,3,2.2862
+Hybrid: S-N + XGBoost,placebo,2,3,4.1240
+Hybrid: S-N + XGBoost,within-warp,2,3,1.4919
+Hybrid: S-N + XGBoost,random,3,3,1.8924
+Hybrid: S-N + XGBoost,cross-warp,3,3,2.2279
+Hybrid: S-N + XGBoost,placebo,3,3,4.0766
+Hybrid: S-N + XGBoost,within-warp,3,3,1.3708
+Hybrid: S-N + XGBoost,random,5,3,1.7970
+Hybrid: S-N + XGBoost,cross-warp,5,3,2.1990
+Hybrid: S-N + XGBoost,placebo,5,3,3.7192
+Hybrid: S-N + XGBoost,within-warp,5,3,1.2887
+Hybrid: S-N + XGBoost,random,10,3,1.7149
+Hybrid: S-N + XGBoost,random,0,4,2.6807
+Hybrid: S-N + XGBoost,random,1,4,3.8785
+Hybrid: S-N + XGBoost,cross-warp,1,4,4.1716
+Hybrid: S-N + XGBoost,placebo,1,4,5.2439
+Hybrid: S-N + XGBoost,within-warp,1,4,2.7240
+Hybrid: S-N + XGBoost,swatch,1,4,2.1983
+Hybrid: S-N + XGBoost,swatch-baseline,0,4,2.7119
+Hybrid: S-N + XGBoost,random,2,4,3.2540
+Hybrid: S-N + XGBoost,cross-warp,2,4,3.8905
+Hybrid: S-N + XGBoost,placebo,2,4,4.4929
+Hybrid: S-N + XGBoost,within-warp,2,4,2.3306
+Hybrid: S-N + XGBoost,random,3,4,3.0968
+Hybrid: S-N + XGBoost,cross-warp,3,4,3.8146
+Hybrid: S-N + XGBoost,placebo,3,4,4.3483
+Hybrid: S-N + XGBoost,within-warp,3,4,2.1588
+Hybrid: S-N + XGBoost,random,5,4,2.9873
+Hybrid: S-N + XGBoost,cross-warp,5,4,3.6902
+Hybrid: S-N + XGBoost,placebo,5,4,3.8100
+Hybrid: S-N + XGBoost,within-warp,5,4,2.0407
+Hybrid: S-N + XGBoost,random,10,4,2.8098
+Hybrid: S-N + XGBoost,random,0,5,4.1434
+Hybrid: S-N + XGBoost,random,1,5,5.7773
+Hybrid: S-N + XGBoost,cross-warp,1,5,6.3114
+Hybrid: S-N + XGBoost,placebo,1,5,6.3029
+Hybrid: S-N + XGBoost,within-warp,1,5,4.2591
+Hybrid: S-N + XGBoost,swatch,1,5,3.3306
+Hybrid: S-N + XGBoost,swatch-baseline,0,5,4.2099
+Hybrid: S-N + XGBoost,random,2,5,5.1105
+Hybrid: S-N + XGBoost,cross-warp,2,5,5.7870
+Hybrid: S-N + XGBoost,placebo,2,5,5.6144
+Hybrid: S-N + XGBoost,within-warp,2,5,3.4087
+Hybrid: S-N + XGBoost,random,3,5,4.7599
+Hybrid: S-N + XGBoost,cross-warp,3,5,5.7086
+Hybrid: S-N + XGBoost,placebo,3,5,5.4506
+Hybrid: S-N + XGBoost,within-warp,3,5,3.1387
+Hybrid: S-N + XGBoost,random,5,5,4.4943
+Hybrid: S-N + XGBoost,cross-warp,5,5,5.4397
+Hybrid: S-N + XGBoost,placebo,5,5,5.1961
+Hybrid: S-N + XGBoost,within-warp,5,5,2.9424
+Hybrid: S-N + XGBoost,random,10,5,4.2371

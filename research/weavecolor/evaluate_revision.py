@@ -15,7 +15,7 @@ import numpy as np
 
 from . import data as D
 from .colorlib import delta_e_2000
-from .evaluate import RESULTS, SCHEMES, split_random, subsets
+from .evaluate import RESULTS, SCHEMES, inner_cv, split_random, subsets
 from .models import (LEARNERS, HybridEnsemble, HybridModel, MeanLab, MLModel, StearnsNoechel,
                      YuleNielsen)
 
@@ -65,12 +65,15 @@ def uncertainty():
         w.writerow(["model", "scheme", "row", "de00", "unc"])
         for scheme, splitter in SCHEMES.items():
             for name, make in models.items():
-                err = np.full(len(ds.lab), np.nan)
-                unc = np.full(len(ds.lab), np.nan)
+                # a fabric held out in two leave-one-yarn-out folds gets the mean of both
+                s_err, s_unc, n = np.zeros(len(ds.lab)), np.zeros(len(ds.lab)), np.zeros(len(ds.lab))
                 for tr, te in splitter(ds, idx):
-                    pred, std = make().fit(ds, tr).predict(ds, te, return_std=True)
-                    err[te] = delta_e_2000(pred, ds.lab[te])
-                    unc[te] = np.sqrt((np.asarray(std) ** 2).sum(-1))
+                    pred, std = make().fit(ds, tr, cv=inner_cv(ds, tr, scheme)).predict(ds, te, return_std=True)
+                    s_err[te] += delta_e_2000(pred, ds.lab[te])
+                    s_unc[te] += np.sqrt((np.asarray(std) ** 2).sum(-1))
+                    n[te] += 1
+                err = np.where(n > 0, s_err / np.maximum(n, 1), np.nan)
+                unc = np.where(n > 0, s_unc / np.maximum(n, 1), np.nan)
                 for i in idx:
                     w.writerow([name, scheme, i, f"{err[i]:.4f}", f"{unc[i]:.5f}"])
                 f.flush()
@@ -92,7 +95,7 @@ def params():
                 w.writerow(["S-N", scheme, fold, len(tr), f"w={sn.w:.3f}; b={np.exp(sn.extra[0]):.4f}"])
                 for learner in ("XGBoost", "MLP (BPNN)", "GP"):
                     for model in (MLModel(learner), HybridModel(StearnsNoechel, learner)):
-                        est = model.fit(ds, tr).est
+                        est = model.fit(ds, tr, cv=inner_cv(ds, tr, scheme)).est
                         if hasattr(est, "best_params_"):
                             p = "; ".join(f"{k.split('__')[-1]}={v}" for k, v in est.best_params_.items())
                         else:

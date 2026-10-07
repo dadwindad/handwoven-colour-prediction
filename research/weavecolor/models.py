@@ -57,7 +57,7 @@ class MeanLab:
     name = "เฉลี่ย L*a*b*"
     family = "baseline"
 
-    def fit(self, ds, idx):
+    def fit(self, ds, idx, cv=None):
         return self
 
     def predict(self, ds, idx):
@@ -76,7 +76,7 @@ class DimitrovskiGabrijelcic:
     def __init__(self, white=DEFAULT_WHITE):
         self.white = white  # unused (works in L*a*b*), kept so every physics model shares one signature
 
-    def fit(self, ds, idx):
+    def fit(self, ds, idx, cv=None):
         wl, fl, y = ds.warp_lab[idx], ds.weft_lab[idx], ds.lab[idx]
         loss = lambda t: delta_e_2000(_sigmoid(t[0]) * wl + (1 - _sigmoid(t[0])) * fl, y).mean()
         self.w = float(_sigmoid(_fit_params(loss, [0.0])[0]))
@@ -109,7 +109,7 @@ class ReflectanceMixModel:
     def mix(self, Rw, Rf, w, extra):
         return self.f_inv(w * self.f(Rw, extra) + (1 - w) * self.f(Rf, extra), extra)
 
-    def fit(self, ds, idx):
+    def fit(self, ds, idx, cv=None):
         Rw, Rf, y = self._R(ds.warp_lab[idx]), self._R(ds.weft_lab[idx]), ds.lab[idx]
 
         def loss(t):
@@ -266,12 +266,14 @@ LEARNERS = {
 }
 
 
-def _tuned(learner_name):
+def _tuned(learner_name, cv=None):
+    """Grid search on the training fold. cv=None: shuffled 3-fold inner CV; otherwise a list of
+    (train, validation) position arrays that mimic the outer split scheme (grouped inner CV)."""
     est, grid = LEARNERS[learner_name]
     if grid is None:
         return clone(est)
-    return GridSearchCV(clone(est), grid, cv=KFold(3, shuffle=True, random_state=0),
-                        scoring="neg_mean_squared_error", n_jobs=-1)
+    inner = KFold(3, shuffle=True, random_state=0) if cv is None else cv
+    return GridSearchCV(clone(est), grid, cv=inner, scoring="neg_mean_squared_error", n_jobs=-1)
 
 
 class MLModel:
@@ -283,8 +285,8 @@ class MLModel:
         self.learner = learner
         self.name = f"ML ล้วน: {learner}"
 
-    def fit(self, ds, idx):
-        self.est = _tuned(self.learner).fit(features(ds, idx), ds.lab[idx])
+    def fit(self, ds, idx, cv=None):
+        self.est = _tuned(self.learner, cv).fit(features(ds, idx), ds.lab[idx])
         return self
 
     def predict(self, ds, idx):
@@ -301,10 +303,10 @@ class HybridModel:
         self.learner = learner
         self.name = f"Hybrid: {physics_cls.name.split(' (')[0]} + {learner}"
 
-    def fit(self, ds, idx):
+    def fit(self, ds, idx, cv=None):
         self.physics.fit(ds, idx)
         resid = ds.lab[idx] - self.physics.predict(ds, idx)
-        self.est = _tuned(self.learner).fit(features(ds, idx), resid)
+        self.est = _tuned(self.learner, cv).fit(features(ds, idx), resid)
         return self
 
     def predict(self, ds, idx, return_std=False):
@@ -339,17 +341,18 @@ class CNNYarnPhotos:
         emb = dict(zip(z["codes"], z["emb"]))
         return np.hstack([np.stack([emb[c] for c in ds.warp[idx]]), np.stack([emb[c] for c in ds.weft[idx]])])
 
-    def fit(self, ds, idx):
+    def fit(self, ds, idx, cv=None):
         if self.head == "Ridge":
             from sklearn.linear_model import RidgeCV
-            self.est = make_pipeline(StandardScaler(), RidgeCV(alphas=np.logspace(-1, 4, 12)))
+            # cv=None: efficient leave-one-out; otherwise the grouped inner splits
+            self.est = make_pipeline(StandardScaler(), RidgeCV(alphas=np.logspace(-1, 4, 12), cv=cv))
         elif self.head == "GP":
             # 1024 photo features: compress to 8 whitened PCA scores before the ARD Gaussian
             # process (unwhitened scores have SD ~9 and push length scales to their bounds)
             from sklearn.decomposition import PCA
             self.est = make_pipeline(StandardScaler(), PCA(n_components=8, whiten=True, random_state=0), _gp(8))
         else:
-            self.est = _tuned(self.head)
+            self.est = _tuned(self.head, cv)
         self.est.fit(self._x(ds, idx), ds.lab[idx])
         return self
 
@@ -375,10 +378,10 @@ class HybridEnsemble:
         self.n_members = n_members
         self.name = f"Hybrid: {physics_cls.name.split(' (')[0]} + {learner} ensemble×{n_members}"
 
-    def fit(self, ds, idx):
+    def fit(self, ds, idx, cv=None):
         self.physics.fit(ds, idx)
         X, resid = features(ds, idx), ds.lab[idx] - self.physics.predict(ds, idx)
-        tuned = _tuned(self.learner).fit(X, resid)
+        tuned = _tuned(self.learner, cv).fit(X, resid)
         best = tuned.best_estimator_ if hasattr(tuned, "best_estimator_") else tuned
         rng = np.random.default_rng(0)
         self.members = []

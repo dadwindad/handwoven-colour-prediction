@@ -73,6 +73,7 @@ NAME_EN = {
     "modified S-N (ประมาณ λ)": "Modified S-N",
     "CNN-A: ResNet-18 ภาพด้าย + Ridge": "ResNet-18 photo + Ridge",
     "CNN-A: ResNet-18 ภาพด้าย + GP": "ResNet-18 photo + GP",
+    "Yule-Nielsen (n, w, k)": "Yule-Nielsen (n, w, g)",
 }
 
 
@@ -103,15 +104,16 @@ def load_errors():
 
 
 def folds(idx):
-    """For every scheme: fold label per fabric (the fold whose model made its out-of-fold prediction)
-    and the training rows of each fold. Reproduces the overwrite order of evaluate.out_of_fold."""
+    """For every scheme: a fold label per fabric (meaningful for random 5-fold and leave-one-loom-out,
+    where each fabric is held out once) and the list of (train, test) splits. Under
+    leave-one-yarn-out a fabric is held out in two folds and its error is the mean of both."""
     out = {}
     for scheme, splitter in SPLITTERS.items():
-        lab, train = np.full(N, -1), []
+        lab, splits = np.full(N, -1), []
         for k, (tr, te) in enumerate(splitter(DS, idx)):
             lab[te] = k
-            train.append(tr)
-        out[scheme] = (lab, train)
+            splits.append((tr, te))
+        out[scheme] = (lab, splits)
     return out
 
 
@@ -138,16 +140,24 @@ def boot_ci(W, e):
 
 
 def boot_p(W, d):
-    """Two-sided bootstrap p for mean(d) = 0 (percentile method, floored at 1/B)."""
+    """Two-sided bootstrap p for mean(d) = 0 (percentile method). When no resample crosses zero the
+    p-value is only known to be below 2/B; it is then returned as 2/B and boot_bound() is True."""
     m = boot_means(W, d)
-    return max(2 * min(np.mean(m <= 0), np.mean(m >= 0)), 1 / len(m))
+    return max(2 * min(np.mean(m <= 0), np.mean(m >= 0)), 2 / len(m))
 
 
-def fmt_p(p):
+def boot_bound(W, d):
+    m = boot_means(W, d)
+    return min(np.sum(m <= 0), np.sum(m >= 0)) == 0
+
+
+def fmt_p(p, bound=False):
     if p >= 0.001:
-        return f"{p:.3f}"
-    mant, ex = f"{p:.0e}".split("e")
-    return f"${mant}\\times10^{{{int(ex)}}}$"
+        txt = f"{p:.3f}"
+    else:
+        mant, ex = f"{p:.0e}".split("e")
+        txt = f"{mant}\\times10^{{{int(ex)}}}"
+    return f"${'<' if bound else ''}{txt}$"
 
 
 # ---------------------------------------------------------------- style
@@ -247,16 +257,17 @@ def fig_looms(errs):
 
 
 def input_distance(idx, fl):
-    """Distance (CIELAB units, 6-D warp+weft) from each fabric's input to the nearest training input."""
+    """Distance (CIELAB units, 6-D warp+weft) from each fabric's input to the nearest training input;
+    averaged over folds for fabrics held out twice (leave-one-yarn-out)."""
     X = np.hstack([DS.warp_lab, DS.weft_lab])
     out = {}
-    for scheme, (lab, train) in fl.items():
-        d = np.full(N, np.nan)
-        for k, tr in enumerate(train):
-            te = np.flatnonzero(lab == k)
+    for scheme, (lab, splits) in fl.items():
+        total, count = np.zeros(N), np.zeros(N)
+        for tr, te in splits:
             if len(te):
-                d[te] = np.sqrt(((X[te, None, :] - X[None, tr, :]) ** 2).sum(-1)).min(1)
-        out[scheme] = d
+                total[te] += np.sqrt(((X[te, None, :] - X[None, tr, :]) ** 2).sum(-1)).min(1)
+                count[te] += 1
+        out[scheme] = np.where(count > 0, total / np.maximum(count, 1), np.nan)
     return out
 
 
@@ -347,7 +358,8 @@ def gain_tests(errs, idx, fl):
             g_win = sum(a[g].mean() > b[g].mean() for g in groups)
             l_win = sum(a[loom[idx] == L].mean() > b[loom[idx] == L].mean() for L in range(1, 6))
             out.append(dict(learner=learner, scheme=scheme, pure=a.mean(), hyb=b.mean(), gain=d.mean() / a.mean(),
-                            share=np.mean(b < a), lo=lo, hi=hi, p_clu=boot_p(W, d), p_fab=wilcoxon(a, b).pvalue,
+                            share=np.mean(b < a), lo=lo, hi=hi, p_clu=boot_p(W, d), bound=boot_bound(W, d),
+                            p_fab=wilcoxon(a, b).pvalue,
                             folds=f"{g_win}/{len(groups)}", looms=f"{l_win}/5"))
     for key in ("p_clu", "p_fab"):
         for t, q in zip(out, holm(np.array([t[key] for t in out]))):
@@ -364,7 +376,7 @@ def table_gain(tests):
                      f" & {SCHEME_SHORT[t['scheme']]} & {t['pure']:.2f} & {t['hyb']:.2f} & {t['gain']:.0%}".replace("%", "\\%") +
                      f" & {t['share']:.0%}".replace("%", "\\%") +
                      f" & {t['pure'] - t['hyb']:.2f} [{t['lo']:.2f}, {t['hi']:.2f}]"
-                     f" & {fmt_p(t['p_clu_holm'])} & {t['folds']} & {fmt_p(t['p_fab_holm'])} \\\\")
+                     f" & {fmt_p(t['p_clu_holm'], t['bound'])} & {t['folds']} & {fmt_p(t['p_fab_holm'])} \\\\")
         if i % 3 == 2 and i < len(tests) - 1:
             lines.append("\\midrule")
     (OUT / "table_gain.tex").write_text("\n".join(lines) + "\n", encoding="utf-8")
@@ -396,8 +408,8 @@ def bounds_and_coverage(errs, idx, fl):
 
 
 def residual_analysis(idx, fl):
-    """Why the residual form helps: spread of the target versus the S-N residual, and how often a
-    test fabric's target (or residual) falls outside the range seen in its training fold."""
+    """Why the residual form helps: spread of the target versus the S-N residual, and the fabrics
+    whose warp lightness lies outside the training warps' range under leave-one-loom-out."""
     sn = StearnsNoechel().fit(DS, idx)
     y = DS.lab[idx]
     r = y - sn.predict(DS, idx)
@@ -407,28 +419,10 @@ def residual_analysis(idx, fl):
         lines.append(f"{ch} | {y[:, j].std():.2f} | {r[:, j].std():.2f} | {np.ptp(y[:, j]):.1f} | {np.ptp(r[:, j]):.1f}")
     lines.append(f"total variance target {y.var(0).sum():.1f}, residual {r.var(0).sum():.1f}, "
                  f"ratio {r.var(0).sum() / y.var(0).sum():.3f}")
-    lines.append("share of test fabrics with L* outside the training range: target | S-N residual")
-    out_rows = []
-    for scheme, (lab, train) in fl.items():
-        out_t = out_r = n = 0
-        for k, tr in enumerate(train):
-            te = np.flatnonzero(lab == k)
-            if not len(te):
-                continue
-            law = StearnsNoechel().fit(DS, tr)
-            rt, rte = DS.lab[tr] - law.predict(DS, tr), DS.lab[te] - law.predict(DS, te)
-            yt, yte = DS.lab[tr], DS.lab[te]
-            out_t += np.sum((yte[:, 0] < yt[:, 0].min()) | (yte[:, 0] > yt[:, 0].max()))
-            out_r += np.sum((rte[:, 0] < rt[:, 0].min()) | (rte[:, 0] > rt[:, 0].max()))
-            n += len(te)
-        out_rows.append((scheme, out_t / n, out_r / n))
-        lines.append(f"{scheme} | {out_t / n:.1%} | {out_r / n:.1%}")
-    # warp lightness outside the training warps' range (the leave-one-loom-out L1 case)
-    lab, train = fl["leave-one-loom-out"]
+    # warp lightness outside the training warps' range (the leave-one-loom-out L1 and L4 cases)
     wl = DS.warp_lab[:, 0]
     outside = np.zeros(N, bool)
-    for k, tr in enumerate(train):
-        te = np.flatnonzero(lab == k)
+    for tr, te in fl["leave-one-loom-out"][1]:
         outside[te] = (wl[te] > wl[tr].max()) | (wl[te] < wl[tr].min())
     return lines, outside, (y.var(0).sum(), r.var(0).sum(), r.var(0).sum() / y.var(0).sum(), y.std(0), r.std(0))
 
@@ -460,6 +454,82 @@ def uncertainty_tables():
         label = model.replace("S-N + GP", "S-N + GP (posterior SD)")
         tex.append(f"{label} & " + " & ".join(cells) + r" \\")
     (OUT / "table_unc.tex").write_text("\n".join(tex) + "\n", encoding="utf-8")
+    return lines
+
+
+CAL_MODELS = ["S-N (Stearns-Noechel)", "ML ล้วน: XGBoost", "Hybrid: S-N + XGBoost", "ML ล้วน: MLP (BPNN)",
+              "Hybrid: S-N + MLP (BPNN)", "ML ล้วน: GP", "Hybrid: S-N + GP"]
+
+
+def calibration():
+    path = RES / "calibration.csv"
+    if not path.exists():
+        return ["(calibration.csv missing: run weavecolor.evaluate_calibration)"]
+    v = defaultdict(list)
+    for r in csv.DictReader(open(path, newline="", encoding="utf-8")):
+        v[(r["model"], r["strategy"], int(r["n"]))].append(float(r["mean_de00"]))
+    if not all((m, "swatch", 1) in v for m in CAL_MODELS):
+        return ["(calibration.csv incomplete)"]
+    mean = {k: np.mean(x) for k, x in v.items()}            # mean over the five held-out looms
+    lines = ["mean over the five held-out looms of the mean CIEDE2000 of the evaluated fabrics",
+             "model | random n=0,1,2,3,5,10 | within-warp n=1,2,3,5 | cross-warp n=1,2,3,5 | placebo n=1,2,3,5 "
+             "| swatch: none -> same-colour fabric"]
+    tex = []
+    for m in CAL_MODELS:
+        row = lambda st, ns: [mean[(m, st, n)] for n in ns]
+        rnd, ww, cw, pl = (row("random", (0, 1, 2, 3, 5, 10)), row("within-warp", (1, 2, 3, 5)),
+                           row("cross-warp", (1, 2, 3, 5)), row("placebo", (1, 2, 3, 5)))
+        sw0, sw1 = mean[(m, "swatch-baseline", 0)], mean[(m, "swatch", 1)]
+        f = lambda xs: " ".join(f"{x:.2f}" for x in xs)
+        lines.append(f"{MODELS[m]} | {f(rnd)} | {f(ww)} | {f(cw)} | {f(pl)} | {sw0:.2f} -> {sw1:.2f}")
+        tex.append(f"{MODELS[m]} & " + " & ".join(f"{x:.2f}" for x in (rnd[0], rnd[3], rnd[5], ww[2], cw[2], pl[2], sw0, sw1))
+                   + r" \\")
+    (OUT / "table_calibration.tex").write_text("\n".join(tex) + "\n", encoding="utf-8")
+    for m in ("Hybrid: S-N + XGBoost", "S-N (Stearns-Noechel)"):
+        lines.append(f"per loom, {MODELS[m]}: none / random n=3 / within-warp n=1 / swatch: " + "; ".join(
+            f"L{k}: {a:.2f}/{b:.2f}/{c:.2f}/{d:.2f}" for k, a, b, c, d in zip(
+                range(1, 6), v[(m, "random", 0)], v[(m, "random", 3)], v[(m, "within-warp", 1)], v[(m, "swatch", 1)])))
+    fig, ax = plt.subplots(figsize=(4.8, 3.1))
+    ns = [0, 1, 2, 3, 5]
+    for m, c in (("ML ล้วน: XGBoost", COLORS[1]), ("Hybrid: S-N + XGBoost", COLORS[0]), ("S-N (Stearns-Noechel)", COLORS[2])):
+        ax.plot(ns, [mean[(m, "random", 0)]] + [mean[(m, "within-warp", n)] for n in ns[1:]], color=c, lw=2,
+                marker="o", ms=5, label=MODELS[m])
+        ax.plot(ns, [mean[(m, "random", 0)]] + [mean[(m, "cross-warp", n)] for n in ns[1:]], color=c, lw=1.2,
+                ls="--", marker="o", ms=3.5, mfc="white")
+    style(ax)
+    ax.set_xlabel("Calibration fabrics from one warp yarn of the new loom (n)", fontsize=8, color=INK)
+    ax.set_ylabel("Mean CIEDE2000", fontsize=8, color=INK)
+    ax.set_xticks(ns)
+    ax.plot([], [], color=MUTED, lw=2, label="same warp yarn (within-warp)")
+    ax.plot([], [], color=MUTED, lw=1.2, ls="--", label="other warp yarns (cross-warp)")
+    ax.legend(frameon=False, fontsize=6.5, loc="upper left", ncol=2)
+    ax.set_ylim(0, 10.5)
+    fig.tight_layout()
+    fig.savefig(OUT / "fig_calibration.pdf")
+    fig.savefig(OUT / "fig_calibration.png", dpi=300)
+    return lines
+
+
+INNER_KEY = ["เฉลี่ย L*a*b*", "S-N (Stearns-Noechel)", "ML ล้วน: GP", "ML ล้วน: Polynomial Ridge", "ML ล้วน: SVR", "ML ล้วน: MLP (BPNN)",
+             "ML ล้วน: XGBoost", "Hybrid: S-N + GP", "Hybrid: S-N + MLP (BPNN)", "Hybrid: S-N + XGBoost"]
+
+
+def inner_cv_sensitivity(errs, idx):
+    path = RES / "archive" / "oof_errors_shuffled_inner_cv.csv"
+    if not path.exists():
+        return ["(archive missing)"]
+    old = defaultdict(lambda: np.full(N, np.nan))
+    for r in csv.DictReader(open(path, newline="", encoding="utf-8")):
+        if r["subset"] == "all":
+            old[(r["model"], r["scheme"])][int(r["row"])] = float(r["de00"])
+    lines, tex = ["model | unseen yarn previous -> current | unseen loom previous -> current"], []
+    for m in INNER_KEY:
+        cells = []
+        for s in ("leave-one-yarn-out", "leave-one-loom-out"):
+            cells += [np.nanmean(old[(m, s)][idx]), errs[(m, s)][idx].mean()]
+        lines.append(f"{name_en(m)} | {cells[0]:.2f} -> {cells[1]:.2f} | {cells[2]:.2f} -> {cells[3]:.2f}")
+        tex.append(f"{name_en(m)} & " + " & ".join(f"{x:.2f}" for x in cells) + r" \\")
+    (OUT / "table_innercv.tex").write_text("\n".join(tex) + "\n", encoding="utf-8")
     return lines
 
 
@@ -564,6 +634,9 @@ def main():
     for m, label in MODELS.items():
         e = errs[(m, "leave-one-loom-out")]
         L.append(f"{label}: " + " ".join(f"{np.nanmean(e[idx][loom[idx] == k]):.2f}" for k in range(1, 6)))
+    L += ["", f"physics-layer gain, all fabrics: {sum(t['p_clu_holm'] < 0.05 for t in tests)}/9 with Holm-adjusted "
+          f"yarn-cluster p < 0.05; {sum(t['lo'] > 0 for t in tests)}/9 with a 95% CI excluding zero; "
+          f"{sum(t['bound'] for t in tests)} p-values are bounds (no resample crossed zero, p < {2 / B:.0e})"]
     L += ["", "pure ML vs S-N hybrid, same learner | pure | hybrid | gain | fabrics improved | "
           "diff [yarn-cluster CI] | p cluster (Holm, 9) | p fabric Wilcoxon (Holm, 9) | folds improved | looms improved"]
     for t in tests:
@@ -594,6 +667,9 @@ def main():
     for m, means, rho in dist_rows:
         L.append(f"{MODELS[m]} | " + " ".join(f"{v:.2f}" for v in means) + f" | {rho:.2f}")
     L += ["", "median distance per scheme: " + ", ".join(f"{s} {np.median(dist[s][idx]):.1f}" for s in SCHEMES)]
+    L += ["", "FEW-SHOT LOOM CALIBRATION"] + calibration()
+    L += ["", "INNER-CV DESIGN (previous protocol: shuffled inner CV; leave-one-yarn-out error from the "
+          "higher-coded yarn's fold only)"] + inner_cv_sensitivity(errs, idx)
     L += ["", "UNCERTAINTY"] + uncertainty_tables()
     L += ["", "REPEATED RANDOM CV"] + repeated_cv()
     L += ["", "SELECTED HYPER-PARAMETERS"] + selected_params()
@@ -604,12 +680,20 @@ def main():
     L += ["", f"SENSITIVITY: screened subset ({len(cidx)} fabrics)"]
     for m in ("ML ล้วน: GP", "ML ล้วน: XGBoost", "ML ล้วน: MLP (BPNN)", REF, "Hybrid: S-N + XGBoost ensemble×10"):
         L.append(f"{MODELS[m]}: " + ", ".join(f"{ce[(m, s)][cidx].mean():.2f}" for s in SCHEMES))
-    Wc = yarn_weights(cidx)
-    for learner in LEARNERS:
+    ctests = gain_tests(ce, cidx, folds(cidx))
+    n_sig = sum(t["p_clu_holm"] < 0.05 for t in ctests)
+    n_ci = sum(t["lo"] > 0 for t in ctests)
+    L.append(f"physics-layer gain, screened: {n_sig}/9 with Holm-adjusted yarn-cluster p < 0.05 "
+             f"(same criterion as the main analysis); {n_ci}/9 with a 95% CI excluding zero")
+    for t in ctests:
+        L.append(f"  gain {t['learner']} {t['scheme']}: {t['pure'] - t['hyb']:.2f} [{t['lo']:.2f}, {t['hi']:.2f}] "
+                 f"p_holm={t['p_clu_holm']:.2g}{' (bound)' if t['bound'] else ''}")
+    L.append("models whose mean error is higher on the screened subset than on all fabrics:")
+    for m in order:
         for s in SCHEMES:
-            d = ce[(f"ML ล้วน: {learner}", s)][cidx] - ce[(f"Hybrid: S-N + {learner}", s)][cidx]
-            lo, hi = boot_ci(Wc, d)
-            L.append(f"  gain {learner} {s}: {d.mean():.2f} [{lo:.2f}, {hi:.2f}]")
+            x, y = errs[(m, s)][idx].mean(), ce[(m, s)][cidx].mean()
+            if y > x:
+                L.append(f"  {name_en(m)} | {s} | {x:.2f} -> {y:.2f}")
     (OUT / "numbers.txt").write_text("\n".join(L) + "\n", encoding="utf-8")
     print("wrote", OUT)
 

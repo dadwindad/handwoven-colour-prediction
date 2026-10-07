@@ -6,10 +6,9 @@ This repository contains the data set, analysis code and results for the paper
 > *Shift-aware evaluation and physics-guided residual learning for colour prediction of handwoven fabrics.*
 > Manuscript submitted to Expert Systems with Applications.
 
-**Version 1.0.2.** Archived on Zenodo: [doi:10.5281/zenodo.23205538](https://doi.org/10.5281/zenodo.23205538)
-(concept DOI, all versions). Versions 1.0.1 and 1.0.2 contain identical data, code and results;
-1.0.2 only updates documentation (this README, `CITATION.cff`, two code comments) and adds
-`research/requirements-lock.txt`.
+**Version 1.1.0.** Archived on Zenodo: [doi:10.5281/zenodo.23205538](https://doi.org/10.5281/zenodo.23205538)
+(concept DOI, all versions). Version 1.1.0 changes the evaluation protocol (see *Changes in 1.1.0*
+below) and adds the few-shot loom-calibration experiment; versions 1.0.x contain the earlier protocol.
 
 It also contains a small offline web app (and a macOS wrapper) that lets weavers look up the
 woven colour of any pair of yarns.
@@ -65,6 +64,9 @@ a sensitivity analysis, because the flags were derived from the measured fabric 
 | `uncertainty_oof.csv` | error and predictive uncertainty of the bagged S-N + XGBoost and S-N + GP hybrids |
 | `repeated_cv.csv` | random 5-fold CV repeated with seeds 0–9 |
 | `selected_params.csv` | hyper-parameters chosen by the inner CV in every outer fold, and fitted mixing-law parameters |
+| `calibration.csv` | few-shot calibration of a new loom: mean error after an offset from n calibration fabrics, per model, strategy and held-out loom |
+| `observer_check.csv` | key physics and hybrid models with the 2° instead of the 10° observer |
+| `archive/` | results of the earlier protocol (versions 1.0.x), kept for the comparison in the paper's appendix |
 
 Model names in these files are those used in the code; some are in Thai:
 `เฉลี่ย L*a*b*` = mean of the two yarn colours, `ML ล้วน: X` = pure learner X,
@@ -93,7 +95,23 @@ python3 -m venv .venv
 .venv/bin/python -m weavecolor.evaluate_revision uncertainty
 .venv/bin/python -m weavecolor.evaluate_revision repeated
 .venv/bin/python -m weavecolor.evaluate_revision params
+.venv/bin/python -m weavecolor.evaluate_calibration      # few-shot loom calibration
+.venv/bin/python -m weavecolor.evaluate_observer         # 2-degree observer check
 ```
+
+Inner (tuning) cross-validation mirrors the outer scheme: shuffled 3-fold for random 5-fold, three
+groups of held-out yarns for leave-one-yarn-out, and leave-one-training-loom-out for
+leave-one-loom-out (`weavecolor.evaluate.inner_cv`). Under leave-one-yarn-out a fabric of two
+different yarns is held out in two folds and its error is the mean of both.
+
+### Changes in 1.1.0
+
+- Inner CV now mirrors the outer scheme (1.0.x used shuffled inner folds in every scheme).
+- Leave-one-yarn-out averages the two folds of each fabric (1.0.x kept the fold of the
+  higher-coded yarn only).
+- New experiment `weavecolor/evaluate_calibration.py`; bootstrap p-values are reported as bounds
+  when no resample crosses zero.
+- Random 5-fold results are unchanged; `results/archive/` keeps the 1.0.x results.
 
 Main modules: `weavecolor/colorlib.py` (colour conversions, CIEDE2000), `weavecolor/models.py`
 (mixing laws, learners with their hyper-parameter grids, hybrids), `weavecolor/evaluate.py`

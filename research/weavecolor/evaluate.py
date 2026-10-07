@@ -9,6 +9,11 @@ Out-of-fold errors for every fabric are stored in results/oof_errors.csv, one mo
 at a time, so a long run can be stopped and resumed. The report compares every
 model with the reference hybrid using a paired Wilcoxon signed-rank test
 (Holm-corrected within each split scheme).
+
+Inner (tuning) CV mirrors the outer scheme: shuffled 3-fold for random 5-fold, three groups of
+held-out yarns for leave-one-yarn-out, leave-one-loom-out over the training looms for
+leave-one-loom-out. Under leave-one-yarn-out a fabric of two different yarns is held out in two
+folds; its error is the mean of the two out-of-fold errors.
 """
 import argparse
 import csv
@@ -50,6 +55,26 @@ def split_leave_one_loom_out(ds, idx):
         yield idx[loom != k], idx[loom == k]
 
 
+def inner_cv(ds, tr, scheme, n_groups=3, seed=0):
+    """Inner tuning splits for training rows tr, as (train, validation) position arrays, or None
+    for the default shuffled 3-fold CV. They mimic the outer scheme so that hyper-parameters are
+    chosen for the same kind of extrapolation that the outer test measures."""
+    if scheme == "random 5-fold":
+        return None
+    if scheme == "leave-one-yarn-out":
+        yarns = np.unique(np.concatenate([ds.warp[tr], ds.weft[tr]]))
+        groups = np.array_split(np.random.default_rng(seed).permutation(yarns), n_groups)
+        splits = []
+        for g in groups:
+            has = np.isin(ds.warp[tr], g) | np.isin(ds.weft[tr], g)
+            splits.append((np.flatnonzero(~has), np.flatnonzero(has)))
+        return splits
+    if scheme == "leave-one-loom-out":
+        loom = ds.loom[tr]
+        return [(np.flatnonzero(loom != k), np.flatnonzero(loom == k)) for k in np.unique(loom)]
+    raise ValueError(scheme)
+
+
 SCHEMES = {
     "random 5-fold": split_random,
     "leave-one-yarn-out": split_leave_one_yarn_out,
@@ -81,28 +106,35 @@ def model_factories():
 
 
 # ---------------------------------------------------------------- run
-def out_of_fold(ds, make, splitter, idx):
-    err = np.full(len(ds.lab), np.nan)
+def out_of_fold(ds, make, splitter, idx, scheme):
+    """Out-of-fold CIEDE2000 per fabric; a fabric held out in several folds gets the mean error."""
+    total = np.zeros(len(ds.lab))
+    count = np.zeros(len(ds.lab))
     for tr, te in splitter(ds, idx):
         if len(te):
-            model = make().fit(ds, tr)
-            err[te] = delta_e_2000(model.predict(ds, te), ds.lab[te])
+            model = make().fit(ds, tr, cv=inner_cv(ds, tr, scheme))
+            total[te] += delta_e_2000(model.predict(ds, te), ds.lab[te])
+            count[te] += 1
+    err = np.full(len(ds.lab), np.nan)
+    err[count > 0] = total[count > 0] / count[count > 0]
     return err
 
 
-def load_done():
-    if not OOF.exists():
+def load_done(path=None):
+    path = path or OOF
+    if not path.exists():
         return set()
-    with open(OOF, newline="", encoding="utf-8") as f:
+    with open(path, newline="", encoding="utf-8") as f:
         return {(r["model"], r["subset"], r["scheme"]) for r in csv.DictReader(f)}
 
 
-def run(only=None, subset_names=("clean", "all")):
+def run(only=None, subset_names=("clean", "all"), out=None, schemes=None):
+    out = out or OOF
     RESULTS.mkdir(exist_ok=True)
     ds = D.load()
-    done = load_done()
-    new_file = not OOF.exists()
-    with open(OOF, "a", newline="", encoding="utf-8") as f:
+    done = load_done(out)
+    new_file = not out.exists()
+    with open(out, "a", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
         if new_file:
             w.writerow(["model", "family", "subset", "scheme", "row", "warp", "weft", "de00"])
@@ -113,10 +145,10 @@ def run(only=None, subset_names=("clean", "all")):
             for sname in subset_names:
                 idx = subsets(ds)[sname]
                 for scheme, splitter in SCHEMES.items():
-                    if (proto.name, sname, scheme) in done:
+                    if (proto.name, sname, scheme) in done or (schemes and scheme not in schemes):
                         continue
                     t0 = time.time()
-                    err = out_of_fold(ds, make, splitter, idx)
+                    err = out_of_fold(ds, make, splitter, idx, scheme)
                     for i in idx:
                         w.writerow([proto.name, proto.family, sname, scheme, i, ds.warp[i], ds.weft[i],
                                     f"{err[i]:.4f}"])
@@ -206,7 +238,9 @@ if __name__ == "__main__":
     ap.add_argument("--only", help="run only models whose name contains this text")
     ap.add_argument("--subset", choices=["clean", "all", "both"], default="both")
     ap.add_argument("--report", action="store_true", help="only rebuild the report")
+    ap.add_argument("--out", type=Path, help="write to this CSV instead of results/oof_errors.csv")
+    ap.add_argument("--scheme", action="append", help="run only this split scheme (repeatable)")
     a = ap.parse_args()
     if not a.report:
-        run(a.only, ("clean", "all") if a.subset == "both" else (a.subset,))
+        run(a.only, ("clean", "all") if a.subset == "both" else (a.subset,), a.out, a.scheme)
     report()

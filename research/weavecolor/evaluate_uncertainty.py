@@ -1,4 +1,7 @@
-"""Does the model's uncertainty tell us which predictions will be wrong?
+"""Superseded by `python -m weavecolor.evaluate_revision uncertainty` (all 625 fabrics, inner CV that
+mirrors each scheme), which produced the results in the paper. Kept for reference.
+
+Does the model's uncertainty tell us which predictions will be wrong?
 
 Compares the bagged S-N + XGBoost ensemble with S-N + GP (whose uncertainty is the
 GP posterior standard deviation). Uses the cleaned data and the same split schemes

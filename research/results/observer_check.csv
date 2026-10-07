@@ -1,0 +1,25 @@
+model,scheme,white,mean_de00
+S-N (Stearns-Noechel),random 5-fold,D65_10,4.4030
+S-N (Stearns-Noechel),random 5-fold,D65_2,4.4030
+S-N (Stearns-Noechel),leave-one-yarn-out,D65_10,4.4469
+S-N (Stearns-Noechel),leave-one-yarn-out,D65_2,4.4469
+S-N (Stearns-Noechel),leave-one-loom-out,D65_10,4.7895
+S-N (Stearns-Noechel),leave-one-loom-out,D65_2,4.7895
+"Yule-Nielsen (n, w, k)",random 5-fold,D65_10,4.9843
+"Yule-Nielsen (n, w, k)",random 5-fold,D65_2,4.9843
+"Yule-Nielsen (n, w, k)",leave-one-yarn-out,D65_10,5.0959
+"Yule-Nielsen (n, w, k)",leave-one-yarn-out,D65_2,5.0959
+"Yule-Nielsen (n, w, k)",leave-one-loom-out,D65_10,5.5124
+"Yule-Nielsen (n, w, k)",leave-one-loom-out,D65_2,5.5124
+Hybrid: S-N + XGBoost,random 5-fold,D65_10,1.4934
+Hybrid: S-N + XGBoost,random 5-fold,D65_2,1.4934
+Hybrid: S-N + XGBoost,leave-one-yarn-out,D65_10,2.6867
+Hybrid: S-N + XGBoost,leave-one-yarn-out,D65_2,2.6867
+Hybrid: S-N + XGBoost,leave-one-loom-out,D65_10,3.5520
+Hybrid: S-N + XGBoost,leave-one-loom-out,D65_2,3.5520
+Hybrid: S-N + GP,random 5-fold,D65_10,1.9014
+Hybrid: S-N + GP,random 5-fold,D65_2,1.9014
+Hybrid: S-N + GP,leave-one-yarn-out,D65_10,2.8965
+Hybrid: S-N + GP,leave-one-yarn-out,D65_2,2.8830
+Hybrid: S-N + GP,leave-one-loom-out,D65_10,4.0333
+Hybrid: S-N + GP,leave-one-loom-out,D65_2,4.0333

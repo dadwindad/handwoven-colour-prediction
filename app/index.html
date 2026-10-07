@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="th" data-mode="weaver">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>สีผ้าทอโทเร</title>
+  <meta name="description" content="ดูสีผ้าที่เกิดจากด้ายโทเร หาคู่ด้ายจากสีที่ต้องการ และคำนวณปริมาณด้าย ใช้งานได้แบบออฟไลน์">
+  <meta name="theme-color" content="#5b3a29">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1 class="brand">สีผ้าทอโทเร</h1>
+    <div class="mode-switch" role="radiogroup" aria-label="รูปแบบการใช้งาน">
+      <button type="button" role="radio" data-mode="weaver">ช่างทอ</button>
+      <button type="button" role="radio" data-mode="research">นักวิจัย</button>
+    </div>
+  </header>
+
+  <main id="view" tabindex="-1">
+    <p class="loading">กำลังโหลดข้อมูล…</p>
+  </main>
+
+  <nav class="tabs" aria-label="เมนูหลัก">
+    <a href="#look" data-view="look"><span class="tab-icon" aria-hidden="true">▦</span>ดูสีผ้า</a>
+    <a href="#find" data-view="find"><span class="tab-icon" aria-hidden="true">◎</span>หาด้าย</a>
+    <a href="#calc" data-view="calc"><span class="tab-icon" aria-hidden="true">∑</span>คำนวณด้าย</a>
+    <a href="#about" data-view="about"><span class="tab-icon" aria-hidden="true">ⓘ</span>ข้อมูล</a>
+  </nav>
+
+  <dialog id="picker" aria-labelledby="picker-title">
+    <form method="dialog" class="picker-inner">
+      <div class="picker-head">
+        <h2 id="picker-title">เลือกสีด้าย</h2>
+        <button value="" class="ghost" aria-label="ปิด">✕</button>
+      </div>
+      <div id="picker-grid" class="yarn-grid"></div>
+    </form>
+  </dialog>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

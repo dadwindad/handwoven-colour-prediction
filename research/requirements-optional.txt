@@ -1,0 +1,5 @@
+# only for the image models (weavecolor.cnn, weavecolor.evaluate_cnn_b) and image extraction
+torch
+torchvision
+pillow
+pymupdf

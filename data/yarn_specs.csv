@@ -1,0 +1,2 @@
+yarn_id,name,composition,count_system,count,tex,grams_per_skein,skeins_per_kg,meters_per_skein,price_thb_per_skein,price_thb_per_kg,n_colors,source_url,retrieved,notes
+TR-40-2,ไหมทอผ้าโทเร TR Yarn 40/2,polyester 65% / rayon 35%,Ne (assumed),40/2,29.5,70,14,2370,32,410,19,https://www.yarnexpertshop.com/product/649/,2026-10-05,"tex and meters_per_skein are calculated assuming Ne count; verify by weighing and measuring one skein"

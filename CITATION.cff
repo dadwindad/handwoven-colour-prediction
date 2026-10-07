@@ -1,0 +1,34 @@
+cff-version: 1.2.0
+message: "If you use this data or code, please cite the paper and this repository."
+title: "Data and code for: Shift-aware evaluation and physics-guided residual learning for colour prediction of handwoven fabrics"
+type: software
+version: "1.0.0"
+date-released: "2026-10-07"
+license: [MIT, CC-BY-4.0]
+authors:
+  - family-names: Vongpramate
+    given-names: Drusawin
+    affiliation: "Program in Information Technology, Faculty of Science, Buriram Rajabhat University"
+  - family-names: Boonket
+    given-names: Kittikoon
+    email: kittikoon.bk@bru.ac.th
+    affiliation: "Program in Applied Statistics, Faculty of Science, Buriram Rajabhat University"
+  - family-names: Hobanthad
+    given-names: Samkhan
+    affiliation: "Program in Mathematics, Faculty of Science, Buriram Rajabhat University"
+  - family-names: Khuntong
+    given-names: Phanomphon
+    affiliation: "Program in Mathematics, Faculty of Science, Buriram Rajabhat University"
+  - family-names: Siapthaisong
+    given-names: Wathanyu
+    affiliation: "Program in Mathematics, Faculty of Science, Buriram Rajabhat University"
+  - family-names: Saenkham
+    given-names: Thippawan
+    email: Thippawan.sk@bru.ac.th
+    affiliation: "Program in Computer Science, Faculty of Science, Buriram Rajabhat University"
+keywords:
+  - colour prediction
+  - handwoven textiles
+  - physics-guided machine learning
+  - grouped cross-validation
+  - CIEDE2000

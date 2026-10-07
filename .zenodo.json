@@ -1,0 +1,16 @@
+{
+  "title": "Data and code for: Shift-aware evaluation and physics-guided residual learning for colour prediction of handwoven fabrics",
+  "upload_type": "software",
+  "description": "CIELAB measurements of 25 yarns and a full 25 x 25 factorial of 625 hand-woven fabrics (five loom set-ups, Samet sub-district, Buriram, Thailand), yarn and fabric photographs, out-of-fold predictions of 31 colour predictors under random, leave-one-yarn-out and leave-one-loom-out nested cross-validation, and the Python code that reproduces every table and figure of the paper. Includes an offline web app for looking up woven colours. Code under MIT, data and results under CC BY 4.0.",
+  "creators": [
+    {"name": "Vongpramate, Drusawin", "affiliation": "Buriram Rajabhat University"},
+    {"name": "Boonket, Kittikoon", "affiliation": "Buriram Rajabhat University"},
+    {"name": "Hobanthad, Samkhan", "affiliation": "Buriram Rajabhat University"},
+    {"name": "Khuntong, Phanomphon", "affiliation": "Buriram Rajabhat University"},
+    {"name": "Siapthaisong, Wathanyu", "affiliation": "Buriram Rajabhat University"},
+    {"name": "Saenkham, Thippawan", "affiliation": "Buriram Rajabhat University"}
+  ],
+  "license": "cc-by-4.0",
+  "keywords": ["colour prediction", "handwoven textiles", "physics-guided machine learning", "grouped cross-validation", "CIEDE2000", "distribution shift"],
+  "access_right": "open"
+}

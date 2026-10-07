@@ -1,0 +1,248 @@
+model,scheme,fold,n_train,params
+S-N,random 5-fold,0,500,w=0.508; b=0.0354
+ML ล้วน: XGBoost,random 5-fold,0,500,learning_rate=0.1; max_depth=3; subsample=0.8
+Hybrid: S-N + XGBoost,random 5-fold,0,500,learning_rate=0.1; max_depth=3; subsample=0.8
+ML ล้วน: MLP (BPNN),random 5-fold,0,500,"alpha=0.01; hidden_layer_sizes=(128, 64)"
+Hybrid: S-N + MLP (BPNN),random 5-fold,0,500,"alpha=0.1; hidden_layer_sizes=(128, 64)"
+ML ล้วน: GP,random 5-fold,0,500,"3.81**2 * RBF(length_scale=[0.668, 3.52, 1.02, 3.22, 4.98, 6.94]) + WhiteKernel(noise_level=0.0176)"
+Hybrid: S-N + GP,random 5-fold,0,500,"1.02**2 * RBF(length_scale=[1.59, 0.274, 0.273, 1.3, 1.26, 1.43]) + WhiteKernel(noise_level=0.376)"
+S-N,random 5-fold,1,500,w=0.503; b=0.0360
+ML ล้วน: XGBoost,random 5-fold,1,500,learning_rate=0.1; max_depth=3; subsample=0.8
+Hybrid: S-N + XGBoost,random 5-fold,1,500,learning_rate=0.03; max_depth=3; subsample=0.8
+ML ล้วน: MLP (BPNN),random 5-fold,1,500,"alpha=0.0001; hidden_layer_sizes=(128, 64)"
+Hybrid: S-N + MLP (BPNN),random 5-fold,1,500,"alpha=0.01; hidden_layer_sizes=(64, 32)"
+ML ล้วน: GP,random 5-fold,1,500,"2.81**2 * RBF(length_scale=[0.656, 3.1, 1.01, 1.61, 3.59, 6.09]) + WhiteKernel(noise_level=0.0177)"
+Hybrid: S-N + GP,random 5-fold,1,500,"1.04**2 * RBF(length_scale=[1.95, 0.261, 0.298, 1.26, 1.29, 1.53]) + WhiteKernel(noise_level=0.387)"
+S-N,random 5-fold,2,500,w=0.503; b=0.0363
+ML ล้วน: XGBoost,random 5-fold,2,500,learning_rate=0.1; max_depth=3; subsample=0.8
+Hybrid: S-N + XGBoost,random 5-fold,2,500,learning_rate=0.03; max_depth=3; subsample=0.8
+ML ล้วน: MLP (BPNN),random 5-fold,2,500,"alpha=0.0001; hidden_layer_sizes=(128, 64)"
+Hybrid: S-N + MLP (BPNN),random 5-fold,2,500,"alpha=0.0001; hidden_layer_sizes=(128, 64)"
+ML ล้วน: GP,random 5-fold,2,500,"2.7**2 * RBF(length_scale=[0.653, 3.09, 1.05, 1.58, 3.61, 5.91]) + WhiteKernel(noise_level=0.0159)"
+Hybrid: S-N + GP,random 5-fold,2,500,"1.08**2 * RBF(length_scale=[1.78, 0.265, 0.314, 1.17, 1.29, 1.55]) + WhiteKernel(noise_level=0.384)"
+S-N,random 5-fold,3,500,w=0.502; b=0.0357
+ML ล้วน: XGBoost,random 5-fold,3,500,learning_rate=0.1; max_depth=3; subsample=0.8
+Hybrid: S-N + XGBoost,random 5-fold,3,500,learning_rate=0.03; max_depth=3; subsample=0.8
+ML ล้วน: MLP (BPNN),random 5-fold,3,500,"alpha=0.0001; hidden_layer_sizes=(128, 64)"
+Hybrid: S-N + MLP (BPNN),random 5-fold,3,500,"alpha=0.1; hidden_layer_sizes=(64, 32)"
+ML ล้วน: GP,random 5-fold,3,500,"2.67**2 * RBF(length_scale=[0.664, 3.13, 1.07, 1.43, 2.38, 5.89]) + WhiteKernel(noise_level=0.0162)"
+Hybrid: S-N + GP,random 5-fold,3,500,"1.03**2 * RBF(length_scale=[1.69, 0.261, 0.308, 1.23, 1.11, 1.41]) + WhiteKernel(noise_level=0.392)"
+S-N,random 5-fold,4,500,w=0.505; b=0.0345
+ML ล้วน: XGBoost,random 5-fold,4,500,learning_rate=0.1; max_depth=3; subsample=0.8
+Hybrid: S-N + XGBoost,random 5-fold,4,500,learning_rate=0.03; max_depth=3; subsample=0.8
+ML ล้วน: MLP (BPNN),random 5-fold,4,500,"alpha=0.1; hidden_layer_sizes=(128, 64)"
+Hybrid: S-N + MLP (BPNN),random 5-fold,4,500,"alpha=0.0001; hidden_layer_sizes=(128, 64)"
+ML ล้วน: GP,random 5-fold,4,500,"3.86**2 * RBF(length_scale=[0.695, 3.7, 1.07, 3.23, 4.89, 7.11]) + WhiteKernel(noise_level=0.019)"
+Hybrid: S-N + GP,random 5-fold,4,500,"1.02**2 * RBF(length_scale=[1.68, 0.256, 0.315, 1.29, 1.28, 1.39]) + WhiteKernel(noise_level=0.381)"
+S-N,leave-one-yarn-out,0,576,w=0.509; b=0.0303
+ML ล้วน: XGBoost,leave-one-yarn-out,0,576,learning_rate=0.1; max_depth=3; subsample=1.0
+Hybrid: S-N + XGBoost,leave-one-yarn-out,0,576,learning_rate=0.03; max_depth=3; subsample=0.8
+ML ล้วน: MLP (BPNN),leave-one-yarn-out,0,576,"alpha=0.01; hidden_layer_sizes=(128, 64)"
+Hybrid: S-N + MLP (BPNN),leave-one-yarn-out,0,576,"alpha=0.1; hidden_layer_sizes=(64, 32)"
+ML ล้วน: GP,leave-one-yarn-out,0,576,"2.49**2 * RBF(length_scale=[0.728, 2.92, 0.984, 1.23, 1.9, 4.18]) + WhiteKernel(noise_level=0.0168)"
+Hybrid: S-N + GP,leave-one-yarn-out,0,576,"1.08**2 * RBF(length_scale=[1.97, 0.271, 0.313, 0.915, 1.15, 1.64]) + WhiteKernel(noise_level=0.373)"
+S-N,leave-one-yarn-out,1,576,w=0.508; b=0.0342
+ML ล้วน: XGBoost,leave-one-yarn-out,1,576,learning_rate=0.03; max_depth=3; subsample=0.8
+Hybrid: S-N + XGBoost,leave-one-yarn-out,1,576,learning_rate=0.03; max_depth=3; subsample=1.0
+ML ล้วน: MLP (BPNN),leave-one-yarn-out,1,576,"alpha=0.0001; hidden_layer_sizes=(128, 64)"
+Hybrid: S-N + MLP (BPNN),leave-one-yarn-out,1,576,"alpha=0.1; hidden_layer_sizes=(64, 32)"
+ML ล้วน: GP,leave-one-yarn-out,1,576,"2.37**2 * RBF(length_scale=[0.638, 3.02, 0.975, 0.991, 1.95, 2.82]) + WhiteKernel(noise_level=0.0157)"
+Hybrid: S-N + GP,leave-one-yarn-out,1,576,"1.07**2 * RBF(length_scale=[1.71, 0.263, 0.315, 1.13, 1.18, 1.4]) + WhiteKernel(noise_level=0.404)"
+S-N,leave-one-yarn-out,2,576,w=0.508; b=0.0338
+ML ล้วน: XGBoost,leave-one-yarn-out,2,576,learning_rate=0.1; max_depth=3; subsample=1.0
+Hybrid: S-N + XGBoost,leave-one-yarn-out,2,576,learning_rate=0.03; max_depth=3; subsample=0.8
+ML ล้วน: MLP (BPNN),leave-one-yarn-out,2,576,"alpha=0.1; hidden_layer_sizes=(128, 64)"
+Hybrid: S-N + MLP (BPNN),leave-one-yarn-out,2,576,"alpha=0.1; hidden_layer_sizes=(64, 32)"
+ML ล้วน: GP,leave-one-yarn-out,2,576,"2.57**2 * RBF(length_scale=[0.62, 3.08, 0.996, 1.19, 1.96, 4.78]) + WhiteKernel(noise_level=0.0132)"
+Hybrid: S-N + GP,leave-one-yarn-out,2,576,"1.08**2 * RBF(length_scale=[1.77, 0.28, 0.305, 1.07, 1.06, 1.44]) + WhiteKernel(noise_level=0.345)"
+S-N,leave-one-yarn-out,3,576,w=0.507; b=0.0359
+ML ล้วน: XGBoost,leave-one-yarn-out,3,576,learning_rate=0.1; max_depth=3; subsample=0.8
+Hybrid: S-N + XGBoost,leave-one-yarn-out,3,576,learning_rate=0.03; max_depth=3; subsample=1.0
+ML ล้วน: MLP (BPNN),leave-one-yarn-out,3,576,"alpha=0.1; hidden_layer_sizes=(128, 64)"
+Hybrid: S-N + MLP (BPNN),leave-one-yarn-out,3,576,"alpha=0.1; hidden_layer_sizes=(64, 32)"
+ML ล้วน: GP,leave-one-yarn-out,3,576,"2.49**2 * RBF(length_scale=[0.659, 2.8, 1, 1.29, 2.05, 5.31]) + WhiteKernel(noise_level=0.0159)"
+Hybrid: S-N + GP,leave-one-yarn-out,3,576,"0.96**2 * RBF(length_scale=[1.48, 0.289, 0.26, 0.228, 0.504, 0.992]) + WhiteKernel(noise_level=0.239)"
+S-N,leave-one-yarn-out,4,576,w=0.507; b=0.0359
+ML ล้วน: XGBoost,leave-one-yarn-out,4,576,learning_rate=0.1; max_depth=3; subsample=0.8
+Hybrid: S-N + XGBoost,leave-one-yarn-out,4,576,learning_rate=0.03; max_depth=3; subsample=0.8
+ML ล้วน: MLP (BPNN),leave-one-yarn-out,4,576,"alpha=0.1; hidden_layer_sizes=(128, 64)"
+Hybrid: S-N + MLP (BPNN),leave-one-yarn-out,4,576,"alpha=0.0001; hidden_layer_sizes=(64, 32)"
+ML ล้วน: GP,leave-one-yarn-out,4,576,"2.49**2 * RBF(length_scale=[0.647, 2.89, 1.03, 1.33, 2.1, 5.19]) + WhiteKernel(noise_level=0.0162)"
+Hybrid: S-N + GP,leave-one-yarn-out,4,576,"1.08**2 * RBF(length_scale=[1.81, 0.272, 0.306, 1.31, 1.24, 1.54]) + WhiteKernel(noise_level=0.388)"
+S-N,leave-one-yarn-out,5,576,w=0.501; b=0.0352
+ML ล้วน: XGBoost,leave-one-yarn-out,5,576,learning_rate=0.1; max_depth=3; subsample=0.8
+Hybrid: S-N + XGBoost,leave-one-yarn-out,5,576,learning_rate=0.03; max_depth=3; subsample=0.8
+ML ล้วน: MLP (BPNN),leave-one-yarn-out,5,576,"alpha=0.1; hidden_layer_sizes=(128, 64)"
+Hybrid: S-N + MLP (BPNN),leave-one-yarn-out,5,576,"alpha=0.0001; hidden_layer_sizes=(64, 32)"
+ML ล้วน: GP,leave-one-yarn-out,5,576,"2.99**2 * RBF(length_scale=[0.664, 3.26, 1.03, 1.63, 3.66, 6.38]) + WhiteKernel(noise_level=0.0176)"
+Hybrid: S-N + GP,leave-one-yarn-out,5,576,"1.1**2 * RBF(length_scale=[1.91, 0.265, 0.313, 1.34, 1.32, 1.58]) + WhiteKernel(noise_level=0.39)"
+S-N,leave-one-yarn-out,6,576,w=0.503; b=0.0365
+ML ล้วน: XGBoost,leave-one-yarn-out,6,576,learning_rate=0.1; max_depth=3; subsample=0.8
+Hybrid: S-N + XGBoost,leave-one-yarn-out,6,576,learning_rate=0.03; max_depth=3; subsample=1.0
+ML ล้วน: MLP (BPNN),leave-one-yarn-out,6,576,"alpha=0.0001; hidden_layer_sizes=(128, 64)"
+Hybrid: S-N + MLP (BPNN),leave-one-yarn-out,6,576,"alpha=0.01; hidden_layer_sizes=(64, 32)"
+ML ล้วน: GP,leave-one-yarn-out,6,576,"2.34**2 * RBF(length_scale=[0.631, 2.92, 1.06, 1.26, 2.01, 4]) + WhiteKernel(noise_level=0.0158)"
+Hybrid: S-N + GP,leave-one-yarn-out,6,576,"1.08**2 * RBF(length_scale=[1.72, 0.265, 0.317, 1.63, 1.21, 1.43]) + WhiteKernel(noise_level=0.415)"
+S-N,leave-one-yarn-out,7,576,w=0.502; b=0.0348
+ML ล้วน: XGBoost,leave-one-yarn-out,7,576,learning_rate=0.1; max_depth=3; subsample=0.8
+Hybrid: S-N + XGBoost,leave-one-yarn-out,7,576,learning_rate=0.03; max_depth=3; subsample=0.8
+ML ล้วน: MLP (BPNN),leave-one-yarn-out,7,576,"alpha=0.1; hidden_layer_sizes=(128, 64)"
+Hybrid: S-N + MLP (BPNN),leave-one-yarn-out,7,576,"alpha=0.0001; hidden_layer_sizes=(64, 32)"
+ML ล้วน: GP,leave-one-yarn-out,7,576,"3.06**2 * RBF(length_scale=[0.633, 3.21, 1.01, 1.67, 3.77, 6.52]) + WhiteKernel(noise_level=0.017)"
+Hybrid: S-N + GP,leave-one-yarn-out,7,576,"1.13**2 * RBF(length_scale=[1.82, 0.271, 0.319, 1.34, 1.32, 1.64]) + WhiteKernel(noise_level=0.381)"
+S-N,leave-one-yarn-out,8,576,w=0.501; b=0.0364
+ML ล้วน: XGBoost,leave-one-yarn-out,8,576,learning_rate=0.1; max_depth=3; subsample=0.8
+Hybrid: S-N + XGBoost,leave-one-yarn-out,8,576,learning_rate=0.1; max_depth=3; subsample=0.8
+ML ล้วน: MLP (BPNN),leave-one-yarn-out,8,576,"alpha=0.0001; hidden_layer_sizes=(128, 64)"
+Hybrid: S-N + MLP (BPNN),leave-one-yarn-out,8,576,"alpha=0.1; hidden_layer_sizes=(64, 32)"
+ML ล้วน: GP,leave-one-yarn-out,8,576,"2.84**2 * RBF(length_scale=[0.618, 3.82, 0.955, 1.33, 1.83, 4.82]) + WhiteKernel(noise_level=0.0116)"
+Hybrid: S-N + GP,leave-one-yarn-out,8,576,"1.21**2 * RBF(length_scale=[1.49, 0.256, 0.357, 1.34, 1.22, 1.5]) + WhiteKernel(noise_level=0.322)"
+S-N,leave-one-yarn-out,9,576,w=0.499; b=0.0365
+ML ล้วน: XGBoost,leave-one-yarn-out,9,576,learning_rate=0.1; max_depth=3; subsample=0.8
+Hybrid: S-N + XGBoost,leave-one-yarn-out,9,576,learning_rate=0.03; max_depth=3; subsample=0.8
+ML ล้วน: MLP (BPNN),leave-one-yarn-out,9,576,"alpha=0.1; hidden_layer_sizes=(128, 64)"
+Hybrid: S-N + MLP (BPNN),leave-one-yarn-out,9,576,"alpha=0.1; hidden_layer_sizes=(64, 32)"
+ML ล้วน: GP,leave-one-yarn-out,9,576,"2.51**2 * RBF(length_scale=[0.64, 3.05, 1, 1.17, 2.08, 4.45]) + WhiteKernel(noise_level=0.0156)"
+Hybrid: S-N + GP,leave-one-yarn-out,9,576,"0.978**2 * RBF(length_scale=[1.54, 0.285, 0.273, 0.225, 0.497, 0.99]) + WhiteKernel(noise_level=0.236)"
+S-N,leave-one-yarn-out,10,576,w=0.504; b=0.0355
+ML ล้วน: XGBoost,leave-one-yarn-out,10,576,learning_rate=0.1; max_depth=3; subsample=1.0
+Hybrid: S-N + XGBoost,leave-one-yarn-out,10,576,learning_rate=0.03; max_depth=3; subsample=0.8
+ML ล้วน: MLP (BPNN),leave-one-yarn-out,10,576,"alpha=0.0001; hidden_layer_sizes=(128, 64)"
+Hybrid: S-N + MLP (BPNN),leave-one-yarn-out,10,576,"alpha=0.1; hidden_layer_sizes=(64, 32)"
+ML ล้วน: GP,leave-one-yarn-out,10,576,"3.08**2 * RBF(length_scale=[0.648, 3.17, 1.02, 1.87, 3.98, 6.61]) + WhiteKernel(noise_level=0.0177)"
+Hybrid: S-N + GP,leave-one-yarn-out,10,576,"1.09**2 * RBF(length_scale=[1.91, 0.279, 0.303, 1.29, 1.31, 1.59]) + WhiteKernel(noise_level=0.392)"
+S-N,leave-one-yarn-out,11,576,w=0.504; b=0.0358
+ML ล้วน: XGBoost,leave-one-yarn-out,11,576,learning_rate=0.1; max_depth=3; subsample=0.8
+Hybrid: S-N + XGBoost,leave-one-yarn-out,11,576,learning_rate=0.03; max_depth=3; subsample=0.8
+ML ล้วน: MLP (BPNN),leave-one-yarn-out,11,576,"alpha=0.1; hidden_layer_sizes=(128, 64)"
+Hybrid: S-N + MLP (BPNN),leave-one-yarn-out,11,576,"alpha=0.01; hidden_layer_sizes=(64, 32)"
+ML ล้วน: GP,leave-one-yarn-out,11,576,"2.74**2 * RBF(length_scale=[0.615, 3.82, 1.03, 1.36, 2.09, 5.69]) + WhiteKernel(noise_level=0.0156)"
+Hybrid: S-N + GP,leave-one-yarn-out,11,576,"1.04**2 * RBF(length_scale=[1.43, 0.273, 0.284, 0.138, 0.836, 1.15]) + WhiteKernel(noise_level=0.208)"
+S-N,leave-one-yarn-out,12,576,w=0.503; b=0.0352
+ML ล้วน: XGBoost,leave-one-yarn-out,12,576,learning_rate=0.1; max_depth=3; subsample=0.8
+Hybrid: S-N + XGBoost,leave-one-yarn-out,12,576,learning_rate=0.03; max_depth=3; subsample=0.8
+ML ล้วน: MLP (BPNN),leave-one-yarn-out,12,576,"alpha=0.0001; hidden_layer_sizes=(128, 64)"
+Hybrid: S-N + MLP (BPNN),leave-one-yarn-out,12,576,"alpha=0.1; hidden_layer_sizes=(64, 32)"
+ML ล้วน: GP,leave-one-yarn-out,12,576,"2.62**2 * RBF(length_scale=[0.655, 3.09, 0.966, 1.43, 2.07, 5.43]) + WhiteKernel(noise_level=0.0147)"
+Hybrid: S-N + GP,leave-one-yarn-out,12,576,"1.1**2 * RBF(length_scale=[1.21, 0.313, 0.426, 1.29, 0.953, 1.47]) + WhiteKernel(noise_level=0.367)"
+S-N,leave-one-yarn-out,13,576,w=0.504; b=0.0355
+ML ล้วน: XGBoost,leave-one-yarn-out,13,576,learning_rate=0.1; max_depth=3; subsample=0.8
+Hybrid: S-N + XGBoost,leave-one-yarn-out,13,576,learning_rate=0.03; max_depth=3; subsample=0.8
+ML ล้วน: MLP (BPNN),leave-one-yarn-out,13,576,"alpha=0.01; hidden_layer_sizes=(128, 64)"
+Hybrid: S-N + MLP (BPNN),leave-one-yarn-out,13,576,"alpha=0.01; hidden_layer_sizes=(64, 32)"
+ML ล้วน: GP,leave-one-yarn-out,13,576,"2.51**2 * RBF(length_scale=[0.625, 2.83, 1.09, 1.29, 2.14, 5.25]) + WhiteKernel(noise_level=0.0159)"
+Hybrid: S-N + GP,leave-one-yarn-out,13,576,"1.1**2 * RBF(length_scale=[1.88, 0.27, 0.318, 1.29, 1.18, 1.56]) + WhiteKernel(noise_level=0.387)"
+S-N,leave-one-yarn-out,14,576,w=0.503; b=0.0343
+ML ล้วน: XGBoost,leave-one-yarn-out,14,576,learning_rate=0.1; max_depth=3; subsample=0.8
+Hybrid: S-N + XGBoost,leave-one-yarn-out,14,576,learning_rate=0.03; max_depth=3; subsample=1.0
+ML ล้วน: MLP (BPNN),leave-one-yarn-out,14,576,"alpha=0.0001; hidden_layer_sizes=(128, 64)"
+Hybrid: S-N + MLP (BPNN),leave-one-yarn-out,14,576,"alpha=0.01; hidden_layer_sizes=(128, 64)"
+ML ล้วน: GP,leave-one-yarn-out,14,576,"2.49**2 * RBF(length_scale=[0.677, 2.94, 1.03, 1.29, 2.01, 5.04]) + WhiteKernel(noise_level=0.0148)"
+Hybrid: S-N + GP,leave-one-yarn-out,14,576,"1.1**2 * RBF(length_scale=[2.02, 0.291, 0.36, 1.16, 1.15, 1.55]) + WhiteKernel(noise_level=0.375)"
+S-N,leave-one-yarn-out,15,576,w=0.506; b=0.0361
+ML ล้วน: XGBoost,leave-one-yarn-out,15,576,learning_rate=0.1; max_depth=3; subsample=1.0
+Hybrid: S-N + XGBoost,leave-one-yarn-out,15,576,learning_rate=0.03; max_depth=3; subsample=0.8
+ML ล้วน: MLP (BPNN),leave-one-yarn-out,15,576,"alpha=0.01; hidden_layer_sizes=(128, 64)"
+Hybrid: S-N + MLP (BPNN),leave-one-yarn-out,15,576,"alpha=0.01; hidden_layer_sizes=(64, 32)"
+ML ล้วน: GP,leave-one-yarn-out,15,576,"2.8**2 * RBF(length_scale=[0.64, 3.14, 1.03, 1.49, 3.14, 6.28]) + WhiteKernel(noise_level=0.017)"
+Hybrid: S-N + GP,leave-one-yarn-out,15,576,"1.09**2 * RBF(length_scale=[1.62, 0.271, 0.318, 1.4, 1.34, 1.58]) + WhiteKernel(noise_level=0.396)"
+S-N,leave-one-yarn-out,16,576,w=0.506; b=0.0363
+ML ล้วน: XGBoost,leave-one-yarn-out,16,576,learning_rate=0.1; max_depth=3; subsample=1.0
+Hybrid: S-N + XGBoost,leave-one-yarn-out,16,576,learning_rate=0.03; max_depth=5; subsample=0.8
+ML ล้วน: MLP (BPNN),leave-one-yarn-out,16,576,"alpha=0.0001; hidden_layer_sizes=(128, 64)"
+Hybrid: S-N + MLP (BPNN),leave-one-yarn-out,16,576,"alpha=0.01; hidden_layer_sizes=(64, 32)"
+ML ล้วน: GP,leave-one-yarn-out,16,576,"2.74**2 * RBF(length_scale=[0.699, 2.99, 1.03, 1.37, 2.34, 5.63]) + WhiteKernel(noise_level=0.0145)"
+Hybrid: S-N + GP,leave-one-yarn-out,16,576,"1.05**2 * RBF(length_scale=[1.65, 0.38, 0.267, 1.1, 0.967, 1.36]) + WhiteKernel(noise_level=0.355)"
+S-N,leave-one-yarn-out,17,576,w=0.507; b=0.0360
+ML ล้วน: XGBoost,leave-one-yarn-out,17,576,learning_rate=0.1; max_depth=3; subsample=0.8
+Hybrid: S-N + XGBoost,leave-one-yarn-out,17,576,learning_rate=0.03; max_depth=3; subsample=1.0
+ML ล้วน: MLP (BPNN),leave-one-yarn-out,17,576,"alpha=0.0001; hidden_layer_sizes=(128, 64)"
+Hybrid: S-N + MLP (BPNN),leave-one-yarn-out,17,576,"alpha=0.01; hidden_layer_sizes=(128, 64)"
+ML ล้วน: GP,leave-one-yarn-out,17,576,"2.61**2 * RBF(length_scale=[0.757, 2.87, 1.1, 1.35, 2, 4.91]) + WhiteKernel(noise_level=0.0141)"
+Hybrid: S-N + GP,leave-one-yarn-out,17,576,"1.07**2 * RBF(length_scale=[1.57, 0.294, 0.388, 1.24, 1.18, 1.5]) + WhiteKernel(noise_level=0.388)"
+S-N,leave-one-yarn-out,18,576,w=0.507; b=0.0360
+ML ล้วน: XGBoost,leave-one-yarn-out,18,576,learning_rate=0.1; max_depth=3; subsample=0.8
+Hybrid: S-N + XGBoost,leave-one-yarn-out,18,576,learning_rate=0.03; max_depth=3; subsample=0.8
+ML ล้วน: MLP (BPNN),leave-one-yarn-out,18,576,"alpha=0.01; hidden_layer_sizes=(128, 64)"
+Hybrid: S-N + MLP (BPNN),leave-one-yarn-out,18,576,"alpha=0.1; hidden_layer_sizes=(128, 64)"
+ML ล้วน: GP,leave-one-yarn-out,18,576,"2.72**2 * RBF(length_scale=[0.62, 3.17, 1.01, 1.45, 2.26, 5.63]) + WhiteKernel(noise_level=0.0156)"
+Hybrid: S-N + GP,leave-one-yarn-out,18,576,"1.05**2 * RBF(length_scale=[1.87, 0.283, 0.29, 1.31, 1.27, 1.48]) + WhiteKernel(noise_level=0.384)"
+S-N,leave-one-yarn-out,19,576,w=0.506; b=0.0357
+ML ล้วน: XGBoost,leave-one-yarn-out,19,576,learning_rate=0.1; max_depth=3; subsample=0.8
+Hybrid: S-N + XGBoost,leave-one-yarn-out,19,576,learning_rate=0.03; max_depth=3; subsample=0.8
+ML ล้วน: MLP (BPNN),leave-one-yarn-out,19,576,"alpha=0.0001; hidden_layer_sizes=(128, 64)"
+Hybrid: S-N + MLP (BPNN),leave-one-yarn-out,19,576,"alpha=0.0001; hidden_layer_sizes=(128, 64)"
+ML ล้วน: GP,leave-one-yarn-out,19,576,"2.7**2 * RBF(length_scale=[0.593, 3.05, 1.3, 1.42, 2.89, 5.64]) + WhiteKernel(noise_level=0.0161)"
+Hybrid: S-N + GP,leave-one-yarn-out,19,576,"1.09**2 * RBF(length_scale=[1.67, 0.277, 0.316, 1.18, 1.26, 1.63]) + WhiteKernel(noise_level=0.389)"
+S-N,leave-one-yarn-out,20,576,w=0.503; b=0.0363
+ML ล้วน: XGBoost,leave-one-yarn-out,20,576,learning_rate=0.1; max_depth=3; subsample=0.8
+Hybrid: S-N + XGBoost,leave-one-yarn-out,20,576,learning_rate=0.03; max_depth=3; subsample=1.0
+ML ล้วน: MLP (BPNN),leave-one-yarn-out,20,576,"alpha=0.0001; hidden_layer_sizes=(128, 64)"
+Hybrid: S-N + MLP (BPNN),leave-one-yarn-out,20,576,"alpha=0.1; hidden_layer_sizes=(128, 64)"
+ML ล้วน: GP,leave-one-yarn-out,20,576,"2.29**2 * RBF(length_scale=[0.806, 3.54, 1.3, 1.26, 2.8, 5.13]) + WhiteKernel(noise_level=0.0105)"
+Hybrid: S-N + GP,leave-one-yarn-out,20,576,"1.3**2 * RBF(length_scale=[0.632, 1.24, 0.199, 1.25, 1.22, 1.65]) + WhiteKernel(noise_level=0.326)"
+S-N,leave-one-yarn-out,21,576,w=0.503; b=0.0362
+ML ล้วน: XGBoost,leave-one-yarn-out,21,576,learning_rate=0.1; max_depth=3; subsample=1.0
+Hybrid: S-N + XGBoost,leave-one-yarn-out,21,576,learning_rate=0.03; max_depth=3; subsample=1.0
+ML ล้วน: MLP (BPNN),leave-one-yarn-out,21,576,"alpha=0.0001; hidden_layer_sizes=(64, 32)"
+Hybrid: S-N + MLP (BPNN),leave-one-yarn-out,21,576,"alpha=0.0001; hidden_layer_sizes=(128, 64)"
+ML ล้วน: GP,leave-one-yarn-out,21,576,"2.99**2 * RBF(length_scale=[0.63, 3.27, 1.04, 1.53, 3.59, 6.7]) + WhiteKernel(noise_level=0.016)"
+Hybrid: S-N + GP,leave-one-yarn-out,21,576,"1.13**2 * RBF(length_scale=[1.9, 0.261, 0.324, 1.31, 1.32, 1.61]) + WhiteKernel(noise_level=0.375)"
+S-N,leave-one-yarn-out,22,576,w=0.502; b=0.0362
+ML ล้วน: XGBoost,leave-one-yarn-out,22,576,learning_rate=0.1; max_depth=3; subsample=1.0
+Hybrid: S-N + XGBoost,leave-one-yarn-out,22,576,learning_rate=0.03; max_depth=3; subsample=0.8
+ML ล้วน: MLP (BPNN),leave-one-yarn-out,22,576,"alpha=0.1; hidden_layer_sizes=(64, 32)"
+Hybrid: S-N + MLP (BPNN),leave-one-yarn-out,22,576,"alpha=0.01; hidden_layer_sizes=(128, 64)"
+ML ล้วน: GP,leave-one-yarn-out,22,576,"2.99**2 * RBF(length_scale=[0.635, 3.21, 1.01, 1.6, 3.54, 6.68]) + WhiteKernel(noise_level=0.0158)"
+Hybrid: S-N + GP,leave-one-yarn-out,22,576,"1.14**2 * RBF(length_scale=[2.21, 0.273, 0.322, 1.32, 1.28, 1.64]) + WhiteKernel(noise_level=0.369)"
+S-N,leave-one-yarn-out,23,576,w=0.504; b=0.0370
+ML ล้วน: XGBoost,leave-one-yarn-out,23,576,learning_rate=0.1; max_depth=3; subsample=1.0
+Hybrid: S-N + XGBoost,leave-one-yarn-out,23,576,learning_rate=0.03; max_depth=3; subsample=0.8
+ML ล้วน: MLP (BPNN),leave-one-yarn-out,23,576,"alpha=0.01; hidden_layer_sizes=(64, 32)"
+Hybrid: S-N + MLP (BPNN),leave-one-yarn-out,23,576,"alpha=0.0001; hidden_layer_sizes=(128, 64)"
+ML ล้วน: GP,leave-one-yarn-out,23,576,"2.98**2 * RBF(length_scale=[0.726, 3.07, 0.926, 1.7, 3.89, 6.56]) + WhiteKernel(noise_level=0.0151)"
+Hybrid: S-N + GP,leave-one-yarn-out,23,576,"1.11**2 * RBF(length_scale=[2.03, 0.273, 0.298, 1.15, 1.39, 1.64]) + WhiteKernel(noise_level=0.353)"
+S-N,leave-one-yarn-out,24,576,w=0.502; b=0.0361
+ML ล้วน: XGBoost,leave-one-yarn-out,24,576,learning_rate=0.1; max_depth=3; subsample=1.0
+Hybrid: S-N + XGBoost,leave-one-yarn-out,24,576,learning_rate=0.03; max_depth=3; subsample=0.8
+ML ล้วน: MLP (BPNN),leave-one-yarn-out,24,576,"alpha=0.0001; hidden_layer_sizes=(64, 32)"
+Hybrid: S-N + MLP (BPNN),leave-one-yarn-out,24,576,"alpha=0.1; hidden_layer_sizes=(128, 64)"
+ML ล้วน: GP,leave-one-yarn-out,24,576,"3.71**2 * RBF(length_scale=[0.653, 3.22, 1.06, 2.98, 4.95, 5.6]) + WhiteKernel(noise_level=0.016)"
+Hybrid: S-N + GP,leave-one-yarn-out,24,576,"1.12**2 * RBF(length_scale=[1.84, 0.27, 0.326, 1.45, 1.2, 1.46]) + WhiteKernel(noise_level=0.354)"
+S-N,leave-one-loom-out,0,500,w=0.532; b=0.0266
+ML ล้วน: XGBoost,leave-one-loom-out,0,500,learning_rate=0.1; max_depth=3; subsample=0.8
+Hybrid: S-N + XGBoost,leave-one-loom-out,0,500,learning_rate=0.03; max_depth=3; subsample=0.8
+ML ล้วน: MLP (BPNN),leave-one-loom-out,0,500,"alpha=0.1; hidden_layer_sizes=(64, 32)"
+Hybrid: S-N + MLP (BPNN),leave-one-loom-out,0,500,"alpha=0.01; hidden_layer_sizes=(128, 64)"
+ML ล้วน: GP,leave-one-loom-out,0,500,"2.75**2 * RBF(length_scale=[0.7, 2.85, 0.949, 1.3, 2.05, 6.17]) + WhiteKernel(noise_level=0.0196)"
+Hybrid: S-N + GP,leave-one-loom-out,0,500,"0.984**2 * RBF(length_scale=[1.2, 0.274, 0.244, 0.235, 0.498, 0.946]) + WhiteKernel(noise_level=0.236)"
+S-N,leave-one-loom-out,1,500,w=0.482; b=0.0361
+ML ล้วน: XGBoost,leave-one-loom-out,1,500,learning_rate=0.1; max_depth=3; subsample=1.0
+Hybrid: S-N + XGBoost,leave-one-loom-out,1,500,learning_rate=0.03; max_depth=3; subsample=1.0
+ML ล้วน: MLP (BPNN),leave-one-loom-out,1,500,"alpha=0.0001; hidden_layer_sizes=(64, 32)"
+Hybrid: S-N + MLP (BPNN),leave-one-loom-out,1,500,"alpha=0.01; hidden_layer_sizes=(64, 32)"
+ML ล้วน: GP,leave-one-loom-out,1,500,"4.31**2 * RBF(length_scale=[0.613, 4.03, 1.35, 3.21, 5.42, 6.73]) + WhiteKernel(noise_level=0.0179)"
+Hybrid: S-N + GP,leave-one-loom-out,1,500,"1.15**2 * RBF(length_scale=[1.86, 0.259, 0.324, 1.4, 1.51, 1.59]) + WhiteKernel(noise_level=0.427)"
+S-N,leave-one-loom-out,2,500,w=0.499; b=0.0341
+ML ล้วน: XGBoost,leave-one-loom-out,2,500,learning_rate=0.1; max_depth=3; subsample=1.0
+Hybrid: S-N + XGBoost,leave-one-loom-out,2,500,learning_rate=0.03; max_depth=3; subsample=1.0
+ML ล้วน: MLP (BPNN),leave-one-loom-out,2,500,"alpha=0.1; hidden_layer_sizes=(128, 64)"
+Hybrid: S-N + MLP (BPNN),leave-one-loom-out,2,500,"alpha=0.01; hidden_layer_sizes=(64, 32)"
+ML ล้วน: GP,leave-one-loom-out,2,500,"1.97**2 * RBF(length_scale=[0.904, 0.848, 1.57, 1.23, 1.9, 4.12]) + WhiteKernel(noise_level=0.0151)"
+Hybrid: S-N + GP,leave-one-loom-out,2,500,"1.69**2 * RBF(length_scale=[0.3, 1.32, 0.43, 1.66, 1.58, 2.18]) + WhiteKernel(noise_level=0.377)"
+S-N,leave-one-loom-out,3,500,w=0.517; b=0.0384
+ML ล้วน: XGBoost,leave-one-loom-out,3,500,learning_rate=0.1; max_depth=3; subsample=0.8
+Hybrid: S-N + XGBoost,leave-one-loom-out,3,500,learning_rate=0.03; max_depth=3; subsample=1.0
+ML ล้วน: MLP (BPNN),leave-one-loom-out,3,500,"alpha=0.1; hidden_layer_sizes=(128, 64)"
+Hybrid: S-N + MLP (BPNN),leave-one-loom-out,3,500,"alpha=0.1; hidden_layer_sizes=(64, 32)"
+ML ล้วน: GP,leave-one-loom-out,3,500,"2.35**2 * RBF(length_scale=[0.738, 1.89, 1.65, 1.29, 2, 4.8]) + WhiteKernel(noise_level=0.0136)"
+Hybrid: S-N + GP,leave-one-loom-out,3,500,"1.16**2 * RBF(length_scale=[0.774, 0.525, 0.424, 1.44, 1.24, 1.66]) + WhiteKernel(noise_level=0.384)"
+S-N,leave-one-loom-out,4,500,w=0.501; b=0.0381
+ML ล้วน: XGBoost,leave-one-loom-out,4,500,learning_rate=0.1; max_depth=3; subsample=0.8
+Hybrid: S-N + XGBoost,leave-one-loom-out,4,500,learning_rate=0.1; max_depth=3; subsample=0.8
+ML ล้วน: MLP (BPNN),leave-one-loom-out,4,500,"alpha=0.1; hidden_layer_sizes=(128, 64)"
+Hybrid: S-N + MLP (BPNN),leave-one-loom-out,4,500,"alpha=0.1; hidden_layer_sizes=(64, 32)"
+ML ล้วน: GP,leave-one-loom-out,4,500,"1.86**2 * RBF(length_scale=[0.816, 3.26, 2, 0.666, 1.67, 1.37]) + WhiteKernel(noise_level=0.00755)"
+Hybrid: S-N + GP,leave-one-loom-out,4,500,"1.11**2 * RBF(length_scale=[1.59, 1.3, 0.206, 0.239, 0.351, 0.945]) + WhiteKernel(noise_level=0.126)"
+S-N,all 625,-,625,w=0.504; b=0.0356
+Yule-Nielsen,all 625,-,625,n=2.986; w=0.507; k=1.068

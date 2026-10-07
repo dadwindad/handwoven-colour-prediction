@@ -1,0 +1,9 @@
+# Exact versions used to produce the results in the paper (Python 3.14.7, macOS arm64).
+joblib==1.6.0
+matplotlib==3.11.2
+numpy==2.5.3
+pytest==9.1.1
+scikit-learn==1.9.1
+scipy==1.18.1
+threadpoolctl==3.7.0
+xgboost==3.4.1

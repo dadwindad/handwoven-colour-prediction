@@ -2,7 +2,9 @@ cff-version: 1.2.0
 message: "If you use this data or code, please cite the paper and this repository."
 title: "Data and code for: Shift-aware evaluation and physics-guided residual learning for colour prediction of handwoven fabrics"
 type: software
-version: "1.0.0"
+version: "1.0.2"
+# concept DOI: always resolves to the latest version on Zenodo
+doi: 10.5281/zenodo.23205538
 date-released: "2026-10-07"
 license: [MIT, CC-BY-4.0]
 authors:

@@ -13,7 +13,7 @@ selected_params.csv from weavecolor.evaluate_revision) and writes to paper/figur
     numbers.txt         every number quoted in the text
 
 Inference is yarn-cluster aware: the 25 yarn colours are resampled with replacement and each
-fabric is weighted by the product of the multiplicities of its warp and weft yarn (pigeonhole
+fabric is weighted by the product of the multiplicities of its warp and weft yarn (adapted from the pigeonhole
 bootstrap; Owen, 2007). Fabric-level Wilcoxon tests are reported only as descriptive.
 
 Run from research/:
@@ -116,7 +116,8 @@ def folds(idx):
 
 
 def yarn_weights(idx, seed=0):
-    """(B, len(idx)) pigeonhole-bootstrap weights: product of yarn multiplicities of warp and weft."""
+    """(B, len(idx)) yarn-bootstrap weights: one draw of the 25 yarns serves both roles, and a fabric
+    is weighted by the product of the multiplicities of its warp and weft yarn."""
     pos = {c: i for i, c in enumerate(DS.codes)}
     wi = np.array([pos[c] for c in DS.warp[idx]])
     fi = np.array([pos[c] for c in DS.weft[idx]])

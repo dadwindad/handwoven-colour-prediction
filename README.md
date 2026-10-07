@@ -6,6 +6,11 @@ This repository contains the data set, analysis code and results for the paper
 > *Shift-aware evaluation and physics-guided residual learning for colour prediction of handwoven fabrics.*
 > Manuscript submitted to Expert Systems with Applications.
 
+**Version 1.0.2.** Archived on Zenodo: [doi:10.5281/zenodo.23205538](https://doi.org/10.5281/zenodo.23205538)
+(concept DOI, all versions). Versions 1.0.1 and 1.0.2 contain identical data, code and results;
+1.0.2 only updates documentation (this README, `CITATION.cff`, two code comments) and adds
+`research/requirements-lock.txt`.
+
 It also contains a small offline web app (and a macOS wrapper) that lets weavers look up the
 woven colour of any pair of yarns.
 
@@ -69,7 +74,10 @@ Model names in these files are those used in the code; some are in Thai:
 
 ## Reproducing the paper
 
-Python 3.11 or later. On macOS, XGBoost needs OpenMP (`brew install libomp`).
+Python 3.11 or later; the results were produced with Python 3.14.7 on macOS (Apple silicon) and
+the exact package versions in `research/requirements-lock.txt` (use it instead of
+`requirements.txt` to reproduce the numbers exactly). On macOS, XGBoost needs OpenMP
+(`brew install libomp`).
 
 ```sh
 cd research
